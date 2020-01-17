@@ -1,0 +1,147 @@
+<!-- author:lancer
+     date:2020/01/05 -->
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-26.二叉搜索树与双向链表</title>
+     <script>
+
+
+function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} 
+
+//测试用例：
+let tree = new TreeNode(10); 
+let a = new TreeNode(6);
+tree.left = a;
+let b = new TreeNode(14);
+tree.right = b;
+let c = new TreeNode(4); 
+a.left = c; 
+let d = new TreeNode(8); 
+a.right = d; 
+let e = new TreeNode(12); 
+b.left = e;
+let f = new TreeNode(16); 
+b.right = f;
+  
+
+
+console.log(Convert(tree));
+console.log(Convert2(tree));
+
+//解法1：递归  参数传递，有问题
+function Convert1(pRootOfTree)
+{
+  if(pRootOfTree==null)
+  return null;
+  let pre = new TreeNode();
+  //pre =null;
+  ConvertNode1(pRootOfTree, pre);
+  let res = new TreeNode();
+  res =pRootOfTree;
+  while(res.left)
+  res=res.left;
+  return res;
+}
+
+function ConvertNode1(cur, pre)
+{
+  if(cur==null)
+  return;
+  ConvertNode1(cur.left,pre);
+
+  cur.left=pre;
+  if(pre)
+  pre.right=cur;
+  pre=cur;
+
+  ConvertNode1(cur.right,pre);
+}
+
+//解法2 递归
+function Convert(pRootOfTree)
+{
+  if(pRootOfTree==null)
+  return null;
+  let pre = null;
+  pre=ConvertNode(pRootOfTree, pre);
+  let res = pre;
+  while(res.left)
+  res=res.left;
+  return res;
+}
+
+function ConvertNode(cur, pre)
+{
+  if(cur==null)
+  return;
+  if(cur.left)
+  pre = ConvertNode(cur.left,pre);
+
+  cur.left=pre;
+  if(pre)
+  pre.right=cur;
+  pre=cur;
+
+  if(cur.right)
+  pre = ConvertNode(cur.right,pre);
+
+  return pre;
+}
+
+//解法3：非递归
+function Convert2(pRootOfTree)
+{
+  if(pRootOfTree==null)
+  return null;
+  let p=pRootOfTree,
+      node=null;
+  let stack=[],resStack=[];
+  while(p||stack.length)
+  {
+    if(p)
+    {stack.push(p);
+    p=p.left;
+    }
+    else
+    {
+      node=stack.pop();
+      resStack.push(node);
+      p=node.right;
+    }
+  }
+  let result=resStack[0],
+      temp=null;
+  while(resStack.length)
+  {  temp=resStack.shift();
+     if(resStack.length)
+     {
+       temp.right=resStack[0];
+       resStack[0].left=temp;
+     }
+  }
+  return result;
+}
+
+
+
+     </script>
+     </head>
+     
+     <body>
+     <!-- 
+     题目描述：
+   输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。
+     
+     解题思路：
+     
+     
+     -->
+     </body> 
+     
+     </html>

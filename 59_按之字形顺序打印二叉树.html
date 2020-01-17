@@ -1,0 +1,87 @@
+<!-- author:lancer
+     date:2019/12/28 -->
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-59.按之字形顺序打印二叉树</title>
+     <script>
+
+ function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} 
+
+//测试用例：
+let Tree1 = new TreeNode(1); 
+let a1 = new TreeNode(2);
+Tree1.left = a1;
+let b1 = new TreeNode(3);
+Tree1.right = b1;
+let c1 = new TreeNode(4); 
+a1.left = c1; 
+let d1 = new TreeNode(5); 
+a1.right = d1; 
+let e1 = new TreeNode(6); 
+b1.left = e1;  
+let f1 = new TreeNode(7); 
+b1.right = f1;  
+
+console.log(Print(Tree1));
+
+//解法：
+function Print(pRoot)
+{
+  let result=[],stack1=[],stack2=[];
+  if(pRoot==null)
+  return result;
+  let temp = new TreeNode();
+  let layer=1
+  stack1.push(pRoot);
+  while(stack1.length||stack2.length)
+  {
+    let arr=[];
+    if(parseInt(layer%2)!=0)
+   {
+       while(stack1.length)
+    {
+        temp = stack1.pop();
+        arr.push(temp.val);
+        if(temp.left!=null)
+        stack2.push(temp.left);
+        if(temp.right!=null)
+        stack2.push(temp.right);
+    } 
+   }
+   else
+   {
+        while(stack2.length)
+    {
+        temp = stack2.pop();
+        arr.push(temp.val);
+        if(temp.right!=null)
+        stack1.push(temp.right);
+        if(temp.left!=null)
+        stack1.push(temp.left);
+    }
+   }
+   result.push(arr);
+   layer++;
+}
+return result;
+}
+
+
+     </script>
+     </head>
+     
+     <body>
+     <!-- 
+     题目描述：
+    请实现一个函数按照之字形打印二叉树，即第一行按照从左到右的顺序打印，第二层按照从右至左的顺序打印，第三行按照从左到右的顺序打印，其他行以此类推。
+    -->
+</body> 
+     
+</html>
+

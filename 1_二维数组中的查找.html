@@ -1,0 +1,50 @@
+<!-- author:lancer
+     date:2019/12/01 -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>剑指offer-1.二维数组中的查找</title>
+<script>
+
+// row size:array.length
+// column size:array[i].length
+
+//测试用例
+let a=[[1,2,3,4],[2,3,4,5],[3,4,5,6]]; 
+console.log(a);
+console.log(a.length);//3行
+console.log(a[0].length);//4列
+console.log(Find(5,a)); //true
+console.log(Find(9,a)); //false
+
+//参考代码
+function Find(target, array)
+{let i=0, j=array[i].length-1;
+//求完整度这里最好再加一个判断数组是否为空的条件：a.length>0或者a[0].length>0都可以
+ while((a.length>0)&&(i<array.length)&&(j>=0))
+ {if(array[i][j]<target)
+     i++;
+  else if(array[i][j]>target)
+      j--;
+  else return true;
+     }
+    return false;
+}
+
+
+</script>
+</head>
+
+<body>
+<!-- 
+题目描述：
+在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
+请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
+
+
+
+-->
+</body> 
+
+</html>

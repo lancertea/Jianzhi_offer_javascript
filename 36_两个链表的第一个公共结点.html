@@ -1,0 +1,120 @@
+<!-- author:lancer
+     date:2020/01/09 -->
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-36.两个链表的第一个公共结点</title>
+     <script>
+
+
+//链表结构
+function ListNode(x){
+    this.val = x;
+    this.next = null;
+}
+
+//测试案例
+let list1 = new ListNode(1); 
+let a1 = new ListNode(2);
+list1.next = a1;
+let b1 = new ListNode(3);
+a1.next = b1;
+let c1 = new ListNode(4); 
+b1.next = c1; 
+let d1 = new ListNode(6); 
+c1.next = d1; 
+let e1 = new ListNode(7); 
+d1.next = e1;   //list1=[1,2,3,4,6,7]
+
+let list2 = new ListNode(4); 
+let a = new ListNode(5);
+list2.next = a;
+let b = new ListNode(6);
+a.next = b;
+let c = new ListNode(7); 
+b.next = c; 
+   //list2=[4,5,6,7]
+
+console.log(FindFirstCommonNode(list1, list2)) //返回的是值
+console.log(FindFirstCommonNode1(list1, list2)) //返回的是对象
+
+
+//解法1：用两个辅助栈去存  过不了牛客网
+function FindFirstCommonNode(pHead1, pHead2)
+{
+  if(!pHead1||!pHead2||pHead1.length==0||pHead2.length==0)
+  return false;
+  let stack1=[],stack2=[];
+  let common;
+  while(pHead1)
+  {
+      stack1.push(pHead1.val);
+      pHead1=pHead1.next;
+  }
+  while(pHead2)
+  {
+      stack2.push(pHead2.val);
+      pHead2=pHead2.next;
+  }
+  while(stack1[stack1.length-1]==stack2[stack2.length-1])
+  {
+      common=stack1.pop();
+      stack2.pop();
+  }
+  return common;
+}
+
+//解法2：遍历两个链表的长度，然后让长的先走两个链表的长度差，然后再一起走
+function FindFirstCommonNode1(pHead1, pHead2)
+{
+if(!pHead1||!pHead2||pHead1.length==0||pHead2.length==0)
+  return null;
+let len1=GetListLength(pHead1);
+let len2=GetListLength(pHead2);
+if(len1>len2)
+pHead1=WalkStep(pHead1,len1-len2);
+else
+pHead2=WalkStep(pHead2,len2-len1);
+while(pHead1)
+{
+    if(pHead1.val==pHead2.val)
+    return pHead1;
+    pHead1=pHead1.next;
+    pHead2=pHead2.next;
+}
+return null;
+}
+
+function GetListLength(pHead)
+{
+    let len=0;
+    while(pHead)
+    {
+     len++;
+     pHead=pHead.next;
+    }
+    return len;
+}
+
+function WalkStep(pHead,step)
+{
+    while(step--)
+    pHead=pHead.next;
+    return pHead;
+}
+
+
+</script>
+</head>
+     
+<body>
+     <!-- 
+     题目描述：
+   输入两个链表，找出它们的第一个公共结点。
+     
+     
+     -->
+     </body> 
+     
+     </html>
