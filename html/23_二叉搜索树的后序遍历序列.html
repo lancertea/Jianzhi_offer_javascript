@@ -1,0 +1,115 @@
+<!-- author:lancer
+     date:2019/12/19 -->
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-23.二叉搜索树的后序遍历序列</title>
+     <script>
+
+
+
+//测试用例：
+seq1=[5,7,6,9,11,10,8];
+seq2=[7,4,6,5];
+seq3=null;
+   
+
+
+console.log(VerifySquenceOfBST(seq1));
+console.log(VerifySquenceOfBST(seq2));
+console.log(VerifySquenceOfBST(seq3));
+console.log(VerifySquenceOfBST2(seq1));
+console.log(VerifySquenceOfBST2(seq2));
+console.log(VerifySquenceOfBST2(seq3));
+//console.log(PrintFromTopToBottom(Tree5));
+
+//解法一：剑指offer上的做法（报错）
+function VerifySquenceOfBST1(sequence)
+{
+  if(!sequence||sequence.length==0)
+  return false;
+  let root=sequence[sequence.length-1];
+  let i=0;
+  for(;i<sequence.length;i++)
+  {
+      if(sequence[i]>root)
+      break;
+  }
+  for(let j=i;j<sequence.length;j++)
+  {
+      if(sequence[j]<root)
+      return false;
+  }
+
+  let left=true;
+  if(i>0)
+  left=VerifySquenceOfBST1(sequence.slice(0,i));
+
+  let right=true;
+  if(i<sequence.length-1)
+  right=VerifySquenceOfBST1(sequence.slice(i,sequence.length-1));
+
+  return(left&&right);
+}
+
+//解法2：递归
+function VerifySquenceOfBST(sequence)
+{if(!sequence||sequence.length==0)
+  return false;
+  return judge(sequence,0,sequence.length-1);
+}
+
+function judge(arr,left,right)
+{if(left>=right) return true;
+let i=right;
+while(i>left&&arr[i-1]>arr[right])
+i--;
+for(let j=i-1;j>=left;j--)
+if(arr[j]>arr[right])
+return false;
+return judge(arr,left,i-1)&&judge(arr,i,right-1);
+}
+
+//解法3：非递归
+function VerifySquenceOfBST2(sequence)
+{if(!sequence||sequence.length==0)
+  return false;
+let i=0,n=sequence.length;
+while(n--)
+{   
+    while(sequence[i++]<sequence[n])
+    {
+        console.log(i);
+    }
+
+    while(sequence[i++]>sequence[n])
+    {
+        console.log(i+'>');
+    }
+  if(i<n)
+  return false;
+  i=0;  
+}
+return true;
+}
+
+
+     </script>
+     </head>
+     
+     <body>
+     <!-- 
+     题目描述：
+    输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
+     
+     解题思路：
+     二叉查找树（Binary Search Tree），（又：二叉搜索树，二叉排序树）它或者是一棵空树，或者是具有下列性质的二叉树： 
+     若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 
+     若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
+      它的左、右子树也分别为二叉排序树。
+     
+     -->
+     </body> 
+     
+     </html>

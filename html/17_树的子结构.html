@@ -1,0 +1,149 @@
+<!-- author:lancer
+     date:2019/12/06 -->
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-17.树的子结构</title>
+     <script>
+
+//树的结构
+ function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} 
+
+
+//测试用例：
+let Tree1 = new TreeNode(1); 
+let a1 = new TreeNode(2);
+Tree1.left = a1;
+let b1 = new TreeNode(3);
+Tree1.right = b1;
+let c1 = new TreeNode(4); 
+a1.left = c1; 
+let d1 = new TreeNode(5); 
+a1.right = d1; 
+let e1 = new TreeNode(6); 
+c1.right = e1;   
+
+let Tree2 = new TreeNode(1); 
+
+let Tree3 =null;
+let Tree4 =null;
+
+let Tree5 = new TreeNode(1);
+let a5 = new TreeNode(2);
+Tree5.left = a5;
+let b5 = new TreeNode(3);
+Tree5.right = b5;
+let c5 = new TreeNode(4); 
+a5.left = c5; 
+   
+let Tree6 = new TreeNode(1);
+let a6 = new TreeNode(2);
+Tree6.left = a6;
+let b6 = new TreeNode(4);
+Tree6.right = b6;
+
+let Tree7 = new TreeNode(1);
+let a7 = new TreeNode(2);
+Tree7.left = a7;
+let b7 = new TreeNode(4);
+a7.left = b7;
+
+let Tree8 = new TreeNode(2);
+let a8 = new TreeNode(4);
+Tree8.left = a8;
+
+
+
+
+
+console.log(HasSubtree1(Tree3, Tree4));
+console.log(HasSubtree1(Tree2, Tree3));
+console.log(HasSubtree1(Tree3, Tree2));
+console.log(HasSubtree1(Tree1, Tree5));
+console.log(HasSubtree1(Tree1, Tree6));
+console.log(HasSubtree1(Tree1, Tree7));
+console.log(HasSubtree1(Tree1, Tree8));
+
+console.log(HasSubtree2(Tree3, Tree4));
+console.log(HasSubtree2(Tree2, Tree3));
+console.log(HasSubtree2(Tree3, Tree2));
+console.log(HasSubtree2(Tree1, Tree5));
+console.log(HasSubtree2(Tree1, Tree6));
+console.log(HasSubtree2(Tree1, Tree7));
+console.log(HasSubtree2(Tree1, Tree8));
+
+//解法一：递归判断
+function HasSubtree1(pRoot1, pRoot2)
+{ let result =false;
+if(pRoot1!=null&&pRoot2!=null){
+    if(pRoot1.val==pRoot2.val){
+        result=doseTree1HaveTree2(pRoot1,pRoot2);
+    }
+
+    if(!result){
+        result=HasSubtree1(pRoot1.left,pRoot2);
+    }
+
+    if(!result){
+        result=HasSubtree1(pRoot1.right,pRoot2);
+    }
+}
+return result;
+   }
+
+function doseTree1HaveTree2(root1,root2)
+{
+  if(root2==null)
+  return true;
+  if(root1==null)
+  return false;
+  if(root1.val!=root2.val)
+  return false;
+
+return doseTree1HaveTree2(root1.left,root2.left)&&doseTree1HaveTree2(root1.right,root2.right);
+}
+
+ 
+
+
+//解法2：利用||，&&的好短路性
+function HasSubtree2(pRoot1, pRoot2) {
+  if (!pRoot1 || !pRoot2) {
+    return false;
+  }
+  return isSubtree(pRoot1, pRoot2) || HasSubtree2(pRoot1.left, pRoot2) || HasSubtree2(pRoot1.right, pRoot2);
+}
+ 
+function isSubtree(root1, root2) {
+  if (!root2) {
+    return true;
+  }
+  if (!root1) {
+    return false;
+  }
+  if (root1.val == root2.val) {
+    return isSubtree(root1.left, root2.left) &&
+      isSubtree(root1.right, root2.right);
+  } else {
+    return false;
+  }
+}
+     </script>
+     </head>
+     
+     <body>
+     <!-- 
+     题目描述：
+    输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
+     
+
+     
+     -->
+     </body> 
+     
+     </html>

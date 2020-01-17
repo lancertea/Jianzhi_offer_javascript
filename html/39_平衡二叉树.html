@@ -1,0 +1,89 @@
+<!-- author:lancer
+     date:2019/12/18 -->
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-39.平衡二叉树</title>
+     <script>
+
+//树的结构
+function TreeNode(x) {
+    this.val = x;
+    this.left = null;
+    this.right = null;
+} 
+
+//测试用例：
+let Tree1 = new TreeNode(1); 
+let a1 = new TreeNode(2);
+Tree1.left = a1;
+let b1 = new TreeNode(3);
+Tree1.right = b1;
+let c1 = new TreeNode(4); 
+a1.left = c1; 
+let d1 = new TreeNode(5); 
+a1.right = d1; 
+let e1 = new TreeNode(6); 
+c1.right = e1;   
+
+let Tree2 = new TreeNode(1); 
+let a2 = new TreeNode(2);
+Tree2.left = a2;
+let b2 = new TreeNode(3);
+Tree2.right = b2;
+
+
+console.log(IsBalanced_Solution(Tree1));
+console.log(IsBalanced_Solution(Tree2));
+console.log(IsBalanced_Solution1(Tree1));
+console.log(IsBalanced_Solution1(Tree2));
+
+//解法1：最直接的做法
+function IsBalanced_Solution(pRoot)
+{
+    if(pRoot==null) return true;
+    return Math.abs(MaxDepth(pRoot.left)-MaxDepth(pRoot.right))<=1&&IsBalanced_Solution(pRoot.left)&&IsBalanced_Solution(pRoot.right);
+    
+}
+
+function MaxDepth(pRoot)
+{
+    if(!pRoot) return 0;
+    let left = 1 + MaxDepth(pRoot.left);
+    let right = 1+ MaxDepth(pRoot.right);
+    return Math.max(left,right)
+}
+
+
+
+
+//解法2：由下往上
+function IsBalanced_Solution1(pRoot)
+{
+    
+    return getDepth(pRoot)!=-1;    
+}
+
+function getDepth(pRoot)
+{
+    if(pRoot==null) return 0;
+    let left=getDepth(pRoot.left);
+    if(left==-1) return -1;
+    let right=getDepth(pRoot.right);
+    if(right==-1) return -1;
+    return Math.abs(left-right)>1?-1:1+Math.max(left,right);
+}
+     </script>
+     </head>
+     
+     <body>
+     <!-- 
+     题目描述：
+     输入一棵二叉树，判断该二叉树是否是平衡二叉树。
+     
+     
+     -->
+     </body> 
+     
+     </html>

@@ -1,0 +1,134 @@
+<!-- author:lancer
+     date:2019/12/25 -->
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-53.表示数值的字符串</title>
+     <script>
+
+
+
+//测试用例
+s1='+100';
+s2='5e2';
+s3='-123';
+s4='3.1415';
+s5='-1E-16';
+s6='12e';
+s7='1a';
+s8='1.2.3';
+s9='+-5';
+s10='12e+4.3';
+s11='.123';
+s12='233.';
+console.log(isNumeric(s1));
+console.log(isNumeric(s2));
+console.log(isNumeric(s3));
+console.log(isNumeric(s4));
+console.log(isNumeric(s5));
+console.log(isNumeric(s6));
+console.log(isNumeric(s7));
+console.log(isNumeric(s8));
+console.log(isNumeric(s9));
+console.log(isNumeric(s10));
+console.log(isNumeric(s11));
+console.log(isNumeric(s12));
+
+//解法1：按顺序一步一步判断
+function isNumeric1(s)
+{
+    if(!s||s.length==0)
+    return false;
+    let Num=symbol(s,0)[0];
+    let j=symbol(s,0)[1];
+while(j<s.length)
+{
+if(s[j]=='.')
+{
+    j++;
+    Num=numbers(s, j)[0]||Num;
+    j=numbers(s, j)[1];
+}
+
+if(s[j]=='e'||s[j]=='E')
+{
+    j++;
+    Num=Num&&symbol(s,j)[0];
+}
+
+}
+return Num;
+}
+
+function symbol(s,i)
+{if(s[i]=='+'||s[i]=='-')
+ i++;
+ return numbers(s,i);
+}
+
+function numbers(s,i)
+{ let before=i;
+  while((i<s.length)&&(s[i]>='0')&&(s[i]<='9'))
+  i++;
+  return [i>before,i]; 
+}
+
+//解法2：找出所有非法情况
+function isNumeric2(s)
+{
+    if(!s||s.length==0)
+    return false;
+    let point=false;
+    //let symbol=false;
+    let eOrE=false;
+    for(let i=0;i<s.length;i++)
+    {
+        if(s[i]=='e'||s[i]=='E')
+        {
+            if(i==s.length-1)
+            return false;
+            if(eOrE)
+            return false;
+            eOrE=true;
+        }
+        else if(s[i]=='.')
+        {
+            if(eOrE||point)
+            return false;
+            point=true;
+        }
+        else if(s[i]=='+'||s[i]=='-')
+        {if(!((eOrE&&(s[i-1]=='e'||s[i-1]=='E'))||i==0))
+             return false;}
+        else if(s[i]<'0'||s[i]>'9')
+             return false;
+    }
+    return true;
+}
+
+//解法3：正则表达式
+function isNumeric(s)
+{
+    return s.match(/[+-]?\d*(\.\d*)?([eE][+-]?\d+)?/g)[0]==s
+}
+
+// function isNumeric(s)
+// {
+//     return s.search(/[+-]?\d*(\.\d*)?([eE][+-]?\d+)?/)==0
+// }
+
+     </script>
+     </head>
+     
+     <body>
+     <!-- 
+     题目描述：
+    请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。例如，字符串"+100","5e2","-123","3.1416"和"-1E-16"都表示数值。
+     但是"12e","1a3.14","1.2.3","+-5"和"12e+4.3"都不是。
+
+     
+     -->
+     </body> 
+     
+     </html>

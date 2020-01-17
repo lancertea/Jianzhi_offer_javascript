@@ -1,0 +1,77 @@
+<!-- author:lancer
+     date:2019/12/07 -->
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-20.包含min函数的栈</title>
+     <script>
+
+//解法1
+let stack_data,stack_min=[];
+function push(node)
+{
+  stack_data.push(node);
+   if(stack_min.length==0||node<=stack_min.peek())
+   stack_min.push(node);
+}
+
+function pop()
+{ if(stack_data.length!=0)
+  {if(stack_data.peek()==stack_min.peek())//为啥这里又可以用peek()了
+  stack_min.pop();
+  stack_data.pop();
+}
+}
+
+function top()
+{
+if(stack_data.length!=0)
+return stack_data.peek();
+}
+
+
+function min()
+{
+return stack_min.peek();
+}
+
+
+//解法2
+let stack = [];
+function push(node)
+{
+    stack.push(node);
+}
+function pop()
+{
+    return stack.length==0?null:stack.pop();
+}
+function top()
+{
+    return stack.length==0?null:stack[stack.length-1]; //stack.peek()
+}
+function min()
+{
+    return Math.min.apply(this,stack);
+}
+
+
+
+    
+  
+
+
+     </script>
+     </head>
+     
+     <body>
+     <!-- 
+     题目描述：
+    定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O（1））。
+     
+     
+     -->
+     </body> 
+     
+     </html>
