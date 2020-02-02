@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/03 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -11,50 +12,15 @@
 
 //测试用例：
 console.log(NumberOf11(45));
-console.log(NumberOf11(-37));
+//console.log(NumberOf11(-37));死循环
 console.log(NumberOf12(45));
+console.log(NumberOf12(-37));
 console.log(NumberOf13(45));
 console.log(NumberOf13(-37));
-console.log(NumberOf14(45));
-console.log(NumberOf14(-37));
 
-/*解法1，2只能处理正数的情况，负数都存在问题，列在这里只是为了引起大家的思考~~*/
-
-//解法1：借用除模取余的思想 
-function NumberOf11(n)
-{  
-    let b=0,m=0;
-    if(n>=0)
-    {
-        while(n>0)
-        {
-            //b=n%2; 22.5 因为js里，所有的数都是浮点型，所以用 num1/num2 得出的数是浮点数，而非整数。这里与java 和 .net不同。
-            b=n%2;
-            n=parseInt(n/2);//除法的效率比移位运算要低很多，在实际编程中应尽可能地用移位运算符代替乘除法
-
-        if(b) m++;
-        }
-     return m;
-    }
-    else
-    //负数行不通~
-    {
-        n=-n;
-        while(n>0)
-        {
-            b=n%2;
-            n=parseInt(n/2);
-
-        if(~b) m++;
-        }
-     return m+1; //m+2
-
-        }
-
-    }
-
-    //解法2：右移输入的数字。比解法1效率高，但是遇到负数会出现死循环，因为负数右移会在最左边不断地补1
-    function NumberOf12(n)
+//参考代码
+//错误示例：右移输入的数字。遇到负数会出现死循环，因为负数右移会在最左边不断补1
+    function NumberOf11(n)
     {
         let m=0;
         while(n)
@@ -65,8 +31,9 @@ function NumberOf11(n)
         return m;
     }
 
-    //解法3：左移标志位
-    function NumberOf13(n)
+
+//解法1：左移标志位
+    function NumberOf12(n)
     {
         let m=0,flag=1;
         while(flag) //js存一个数据是32位
@@ -77,8 +44,8 @@ function NumberOf11(n)
         return m;
     }
  
-   //解法4：最右边的1不断变0
-   function NumberOf14(n)
+//解法2：最右边的1不断变0（剑指offer上的做法）
+   function NumberOf13(n)
     {
         let m=0;
         while(n) 
@@ -98,7 +65,14 @@ function NumberOf11(n)
      输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。
      
      解题思路：
-     计算机中有符号数值正数是用原码表示，负数是用补码表示的，一般是32位
+     本题考察二进制和位运算
+     计算机中有符号数值正数是用原码表示，负数是用补码表示，一般是32位
+
+     解法1：有符号数值进行右移操作，最左边补符号位
+            有符号数值进行左移操作，最右边补0
+     
+     解法2：把一个整数-1，再和原整数做与运算，会把该整数最右边的1变成0
+     那么一个整数的二进制表示中有多少个1，就能进行多少次这样的操作。
      -->
      </body> 
      
