@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/03 -->
+     
      <!DOCTYPE html>
      <html>
      <head>
@@ -9,12 +10,14 @@
 
 
 
-//测试用例：
+//测试用例
+//无
+
+//参考代码（剑指offer上的做法）
 let stack1 =[];
 let stack2 =[];
 function push(node)
 {stack1.push(node);
-    
 }
 
 
@@ -25,7 +28,6 @@ function pop()
 }
 }
  return stack2.pop();
-    
 }
 
 //后面补充用两个队列实现栈
@@ -38,6 +40,9 @@ function pop()
      题目描述：
      用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
      
+     解题思路：
+     stack1负责入队列；以stack2作为辅助栈，当其为空时，将此时stack1中全部元素出栈压入stack2，由于先进入队列的元素被压到stack1的底端，
+     经过弹出和压入操作之后就处于stack2的顶端。这样，要求出队列时，若stack2不为空，在stack2中的栈顶元素就是最先进入队列的元素，可直接弹出。
 
      -->
      </body> 
