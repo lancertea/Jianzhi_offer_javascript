@@ -17,7 +17,9 @@ console.log(replaceSpace2(str1));
 //解法1：利用js特性
 function replaceSpace1(str)
  {
-    return str.replace(/\s/g,'%20');
+   if(!str||str.length===0)
+   return '';
+ return str.replace(/\s/g,'%20');
 }
 
 //解法2： 字符串拼接
