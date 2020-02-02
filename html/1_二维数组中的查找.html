@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/01 -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +19,10 @@ console.log(a[0].length);//4列
 console.log(Find(5,a)); //true
 console.log(Find(9,a)); //false
 
-//参考代码
+//参考代码（剑指offer上的做法）
 function Find(target, array)
-{let i=0, j=array[i].length-1;
+{//初始值为矩阵右上角数字，所以行索引值为0，列索引值为列数-1
+ let i=0, j=array[i].length-1;
 //求完整度这里最好再加一个判断数组是否为空的条件：a.length>0或者a[0].length>0都可以
  while((a.length>0)&&(i<array.length)&&(j>=0))
  {if(array[i][j]<target)
@@ -28,7 +30,7 @@ function Find(target, array)
   else if(array[i][j]>target)
       j--;
   else return true;
-     }
+ }
     return false;
 }
 
@@ -42,7 +44,9 @@ function Find(target, array)
 在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
 请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
 
-
+解题思路：
+首先选取矩阵（二维数组）中右上角的数字。如果该数字刚好等于要查找的数字，就返回true；如果该数字大于要查找的数字，则剔除这个数字所在的列（j--）;
+如果该数字小于要查找的数字，则剔除这个数字所在的行（i++）;这样每一步都可以缩小查找的范围，直到找到要查找的数字，或查找范围为空，返回false.
 
 -->
 </body> 
