@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/04 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -9,7 +10,7 @@
 
 
 
-//测试用例：
+//测试用例
 console.log(Power1(2, 4));
 console.log(Power1(0, 0));
 console.log(Power1(3, 0));
@@ -23,13 +24,19 @@ console.log(Power2(-2, 5));
 
 
 
-
+//参考代码
 //解法1：全面考虑后的常规操作
 function Power1(base, exponent)
-{
-  if(base==0||base==1) 
+{ 
+  //base和exponent不能同时为0
+  if(base===0&&exponent===0)
+  return false;
+  //各类情况
+  if(base===0||base===1||exponent===1) 
   return base;
-  if(exponent==0) return 1;
+  if(exponent===0) 
+  return 1;
+
   let n=exponent<0?-exponent:exponent;
   let result=1;
   while(n>=1)
@@ -40,17 +47,20 @@ function Power1(base, exponent)
   return exponent<0? 1.0/result:result;
 }
 
-//解法2：利用位运算
+//解法2：利用位运算（剑指offer上的做法）
 function Power2(base, exponent)
 {
-  if(base==0||base==1) 
+  if(base===0&&exponent===0)
+  return false;
+  if(base===0||base===1||exponent===1) 
   return base;
-  if(exponent==0) return 1;
+  if(exponent===0) 
+  return 1;
   let n=exponent<0?-exponent:exponent;
   let result=1;
   while(n!=0)
   {
-      if((n&1)==1)
+      if((n&1)===1)
       result*=base;
       base*=base;
       n=n>>1;
@@ -67,8 +77,6 @@ function Power2(base, exponent)
      题目描述：
      给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。
      保证base和exponent不同时为0
-     
-    
 
      -->
      </body> 
