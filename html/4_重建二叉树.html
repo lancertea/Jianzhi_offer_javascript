@@ -1,11 +1,12 @@
 <!-- author:lancer
      date:2019/12/02 -->
-     <!DOCTYPE html>
-     <html>
-     <head>
-     <meta charset="utf-8">
-     <title>剑指offer-4.重建二叉树</title>
-     <script>
+
+<!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset="utf-8">
+ <title>剑指offer-4.重建二叉树</title>
+ <script>
 
 //树的结构
 /* function TreeNode(x) {
@@ -14,12 +15,13 @@
     this.right = null;
 } */
 
-//测试用例：
+//测试用例
 let pre = [1,2,4,7,3,5,6,8];
 let vin = [4,7,2,1,5,3,8,6];
 console.log(reConstructBinaryTree(pre,vin));
 
 
+//参考代码（剑指offer上的做法）
 //用递归求解：
 function reConstructBinaryTree(pre, vin){
 // 判断前序数组和中序数组是否为空
@@ -27,12 +29,12 @@ function reConstructBinaryTree(pre, vin){
         return 0;
     }
 	// 新建二叉树的根节点
-    var treeNode = {
+    let treeNode = {
         val: pre[0]
     }
     // 查找中序遍历中的根节点
-    for(var i = 0; i < pre.length; i++) {
-        if (vin[i] === pre[0]) {
+    for(let i = 0; i < pre.length; i++) {
+        if (vin[i] === treeNode.val) {
             // 将左子树的前中序遍历分割开
             treeNode.left = reConstructBinaryTree(pre.slice(1, i+1), vin.slice(0, i));
             // 将右子树的前中序遍历分割开
@@ -45,17 +47,19 @@ function reConstructBinaryTree(pre, vin){
 
 
 
-     </script>
-     </head>
+ </script>
+ </head>
      
-     <body>
+ <body>
      <!-- 
      题目描述：
      输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
      例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
      
+     解题思路：
+     根据前序遍历和中序遍历的特点：前序遍历序列的第一个数字就是根节点的值，根据这个值扫描中序遍历序列就能确定根节点
+     的值的位置。这个位置的左边的序列就是这棵树的左子树，右边就是右子树，可根据递归依次重建。
 
      -->
-     </body> 
-     
-     </html>
+ </body> 
+ </html>
