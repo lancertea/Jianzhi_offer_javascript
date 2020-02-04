@@ -17,7 +17,7 @@
     }
 
 
-//测试用例：
+//测试用例
 let list = new ListNode(1); 
 let a = new ListNode(2);
 list.next = a;
@@ -29,30 +29,12 @@ let d = new ListNode(5);
 c.next = d; 
 let e = new ListNode(6); 
 d.next = e;   //list=[1,2,3,4,5,6]
+console.log(ReverseList(list));
 
 
-//console.log(ReverseList1(list));
-console.log(ReverseList2(list));
-
-
-//解法一(无法运行，无法判断可行性，只是提供一个思路)：栈的思想 
-function ReverseList1(pHead)
-{
-    let arr = [],rearr = [];
-    while(pHead!=null){
-        arr.push(pHead); //这里head.val就是一个包含纯数字的数组  head才对（对象）
-        //arr.push(head.val);
-       pHead =pHead.next;
-    }
-    while(arr.length>=0)
-    {
-        rearr.push(arr.pop());
-    }
-    return rearr;
-}
-
-//解法2：设计三个指针，用指针操作
-function ReverseList2(pHead)
+//参考代码
+//解法：设计三个指针，用指针操作
+function ReverseList(pHead)
 {
     let pre=null,
         pnode=pHead,
