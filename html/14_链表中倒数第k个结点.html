@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/04 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -17,7 +18,7 @@
     }
 
 
-//测试用例：
+//测试用例
 let list = new ListNode(1); 
 let a = new ListNode(2);
 list.next = a;
@@ -31,27 +32,29 @@ let e = new ListNode(6);
 d.next = e;   //list=[1,2,3,4,5,6]
 
 
+console.log(FindKthToTail(list, 3));
+console.log(FindKthToTail(list, 0));
+console.log(FindKthToTail(list, 8));
 console.log(FindKthToTail1(list, 3));
 console.log(FindKthToTail1(list, 0));
 console.log(FindKthToTail1(list, 8));
-console.log(FindKthToTail2(list, 3));
-console.log(FindKthToTail2(list, 0));
-console.log(FindKthToTail2(list, 8));
 
 
+//参考代码
 //解法一：设置两个指针，p1,p2,先让p2走k-1步，然后再一起走，直到p2为最后一个时，p1即为倒数第k个节点 
-function FindKthToTail1(head, k)
+function FindKthToTail(head, k)
 {
     if(head==null||k<=0) 
     return 0;
-    let p1=head,p2=head;
+    let p1=head,
+    p2=head;
     while(k>1)
     {
       if(p2.next!=null)
        {p2=p2.next;
        k--;
        }
-      else return 0;
+      else return 0;//k超过了链表的长度
     }
     while(p2.next!=null)
     {
@@ -64,7 +67,7 @@ function FindKthToTail1(head, k)
 }
 
 //解法2：自己设计的链表没法求整个链表的长度，数组的长度可求，用一个数组保存链表的值
-function FindKthToTail2(head, k)
+function FindKthToTail1(head, k)
 {   
     if(k<=0) 
     return 0;
