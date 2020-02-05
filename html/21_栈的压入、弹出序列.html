@@ -15,13 +15,14 @@ pop2=[4,3,5,1,2];
 console.log(IsPopOrder(push1, pop1));
 console.log(IsPopOrder(push1, pop2));
 
-
+//参考代码
+//解法：剑指offer上的做法
 function IsPopOrder(pushV, popV)
 {
-    if(!pushV||pushV.length==0||!popV||popV.length==0||pushV.length!=popV.length)
+    if(!pushV||pushV.length===0||!popV||popV.length===0||pushV.length!=popV.length)
     return false;
-    let ispop=[];
-    let popindex=0;
+    let ispop=[];//辅助栈
+    let popindex=0;//当前判断的弹出顺序的索引
     for(let i=0; i<pushV.length; i++)
     { 
       ispop.push(pushV[i]);
@@ -35,10 +36,6 @@ function IsPopOrder(pushV, popV)
 }
 
 
-    
-  
-
-
      </script>
      </head>
      
@@ -50,8 +47,9 @@ function IsPopOrder(pushV, popV)
     （注意：这两个序列的长度是相等的）
      
      解题思路：
-     如果下一个弹出的数字刚好是栈顶数字，那么直接弹出；如果下一个弹出的数字不在栈顶，则把压栈序列中还没有入栈的数字压入辅助栈，
-     直到下一个需要弹出的数字压入栈顶为止；如果所有数字都压入栈后仍然没有找到下一个弹出的数字，那么该序列不可能是一个弹出序列
+     利用一个辅助栈挨个输入压入顺序序列的数字：如果下一个弹出的数字（弹出序列当前的索引，初始为0）刚好是辅助栈栈顶数字，那么辅助栈
+     栈顶数字直接弹出，弹出序列索引+1；如果下一个弹出的数字不在栈顶，则把压栈序列中还没有入栈的数字压入辅助栈，直到下一个需要弹出的
+     数字压入栈顶为止；如果所有数字都压入栈后仍然没有找到下一个弹出的数字，那么该序列不可能是一个弹出序列
      
      -->
      </body> 
