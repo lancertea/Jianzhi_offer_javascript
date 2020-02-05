@@ -12,26 +12,24 @@
 let matrix1=[[1,2,3,4],[12,13,14,5],[11,16,15,6],[10,9,8,7]]
 let matrix2=null;
 let matrix3=[];
+console.log(printMatrix(matrix1));
 console.log(printMatrix1(matrix1));
-console.log(printMatrix2(matrix1));
-console.log(printMatrix3(matrix1));
-// console.log(printMatrix1(matrix2));
-// console.log(printMatrix2(matrix2));
-// console.log(printMatrix3(matrix2));
-// console.log(printMatrix1(matrix3));
-// console.log(printMatrix2(matrix3));
-// console.log(printMatrix3(matrix3));
+console.log(printMatrix(matrix2));
+console.log(printMatrix1(matrix2));
+console.log(printMatrix(matrix3));
+console.log(printMatrix1(matrix3));
 
-
+//参考代码
 //解法一：剑指offer上的做法
-function printMatrix1(matrix)
+function printMatrix(matrix)
 {
-    let row = matrix.length;
-    let column = matrix[0].length;
-    if(!matrix||row==0||column==0)
+    
+    if(!matrix||matrix.length===0)
     return 0;
-    let start = 0;
-    let result =[];
+    let row = matrix.length,
+        column = matrix[0].length,
+        start = 0,
+        result =[];
     
     while(column>start*2&&row>start*2)
     {
@@ -83,81 +81,40 @@ function printMatrixCircle(matrix,column,row,start,result)
 }
 
 //解法二：
- function printMatrix2(matrix)
- {
-    let row = matrix.length;
-    let column = matrix[0].length;
-    if(!matrix||row==0||column==0)
-    return 0;
-    let result=[];
-    let top=0,
-        left=0,
-        right=column-1,
-        bottom=row-1;
-    while(left<=right&&top<=bottom)
-    {
-      for(let i=left; i<=right; i++)
-      {
-          result.push(matrix[top][i]);
-      }
-
-      for(let i=top+1; i<=bottom;i++)
-      {
-          result.push(matrix[i][right]);
-      }
-
-      if(top!=bottom)
-      for(let i=right-1; i>=left; i--)
-      {
-          result.push(matrix[bottom][i]);
-      }
-      
-      if(left!=right)
-      for(let i=bottom-1;i>top;i--)
-      {
-          result.push(matrix[i][left]);
-      }
-    
-    left++,top++,right--,bottom--;
-    }
-   return result;
-
- }
-
-//解法3
-function printMatrix3(matrix)
-{let row=matrix.length,column=matrix[0].length;
- if(!matrix||row==0||column==0)
-     return 0;
- let result=[];
- let top=0,left=0,right=row-1,bottom=column-1;
- while(top<=bottom&&left<=right)
- {
-     for(let i=top; i<=bottom; i++)
-         result.push(matrix[left][i]);
-     left++;
-     
-     for(let i=left; i<=right; i++)
-         result.push(matrix[i][bottom]);
-     bottom--;
-     
-     if(left<=right){
-     for(let i=bottom; i>=top;i--)
-         result.push(matrix[right][i]);
-     right--;
-     }
-     
-     if(top<=bottom){
-     for(let i=right; i>=left;i--)
-         result.push(matrix[i][top]);
-     top++;
-     }
- }
- return result;
+function printMatrix1(matrix)
+{
+if(!matrix||matrix.length===0)
+ return 0;
+let row=matrix.length,
+    column=matrix[0].length,
+    left=0,
+    right=column-1,
+    top=0,
+    bottom=row-1,
+    result=[];
+while((left<=right)&&(top<=bottom))
+{
+for(let i=left;i<=right;i++)
+    result.push(matrix[top][i]);
+   top++;
+for(let i=top;i<=bottom;i++)
+    result.push(matrix[i][right]);
+   right--;
+if(top<=bottom)
+{
+for(let i=right;i>=left;i--)
+    result.push(matrix[bottom][i]);
+    bottom--;
 }
-
-    
-  
+if(left<=right)
+{
+for(let i=bottom;i>=top;i--)
+    result.push(matrix[i][left]);
+    left++;
+}
+}
+return result;
+}
 
 
      </script>
