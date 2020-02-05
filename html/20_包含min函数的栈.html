@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/07 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -7,60 +8,57 @@
      <title>剑指offer-20.包含min函数的栈</title>
      <script>
 
-//解法1
-let stack_data,stack_min=[];
+//测试用例：无
+
+//参考代码
+//解法1：剑指offer上的做法
+//利用一个辅助栈，使其栈顶保存当前最小值
+let math_stack=[],
+    min_stack=[];
 function push(node)
 {
-  stack_data.push(node);
-   if(stack_min.length==0||node<=stack_min.peek())
-   stack_min.push(node);
+math_stack.push(node);
+if((min_stack.length===0)||(node<min_stack[min_stack.length-1]))
+min_stack.push(node);
 }
 
 function pop()
-{ if(stack_data.length!=0)
-  {if(stack_data.peek()==stack_min.peek())//为啥这里又可以用peek()了
-  stack_min.pop();
-  stack_data.pop();
+{if(math_stack.length!=0)
+{    if(math_stack[math_stack.length-1]===min_stack[min_stack.length-1])
+    min_stack.pop();
+return math_stack.pop();
 }
+else return null;
 }
 
 function top()
 {
-if(stack_data.length!=0)
-return stack_data.peek();
+return math_stack.length>0?math_stack[math_stack.length-1]:null;
 }
-
-
 function min()
 {
-return stack_min.peek();
+return min_stack.length>0?min_stack[min_stack.length-1]:null;
 }
-
 
 //解法2
 let stack = [];
-function push(node)
+function push1(node)
 {
     stack.push(node);
 }
-function pop()
+function pop1()
 {
     return stack.length==0?null:stack.pop();
 }
-function top()
+function top1()
 {
-    return stack.length==0?null:stack[stack.length-1]; //stack.peek()
-}
-function min()
+    return stack.length==0?null:stack[stack.length-1]; 
+} 
+
+function min1()
 {
     return Math.min.apply(this,stack);
 }
-
-
-
-    
-  
-
 
      </script>
      </head>
