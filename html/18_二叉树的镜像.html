@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/06 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -15,7 +16,7 @@
 } 
 
 
-//测试用例：
+//测试用例
 let Tree1 = new TreeNode(1); 
 let a1 = new TreeNode(2);
 Tree1.left = a1;
@@ -32,17 +33,11 @@ let Tree2 = new TreeNode(1);
 
 let Tree3 =null;
 
-
-
-
-
-
-
 console.log(Mirror(Tree1));
 console.log(Mirror(Tree2));
 console.log(Mirror(Tree3));
 
-
+//参考代码
 //解法：递归遍历，交换每一个“根节点”的左右子节点
 function Mirror(root)
 { if(root==null)
@@ -53,8 +48,6 @@ function Mirror(root)
     Mirror(root.left);
     Mirror(root.right);
 }
-
-  
 
 
      </script>
