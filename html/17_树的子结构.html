@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/06 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -15,7 +16,7 @@
 } 
 
 
-//测试用例：
+//测试用例
 let Tree1 = new TreeNode(1); 
 let a1 = new TreeNode(2);
 Tree1.left = a1;
@@ -61,62 +62,22 @@ Tree8.left = a8;
 
 
 
-console.log(HasSubtree1(Tree3, Tree4));
-console.log(HasSubtree1(Tree2, Tree3));
-console.log(HasSubtree1(Tree3, Tree2));
-console.log(HasSubtree1(Tree1, Tree5));
-console.log(HasSubtree1(Tree1, Tree6));
-console.log(HasSubtree1(Tree1, Tree7));
-console.log(HasSubtree1(Tree1, Tree8));
-
-console.log(HasSubtree2(Tree3, Tree4));
-console.log(HasSubtree2(Tree2, Tree3));
-console.log(HasSubtree2(Tree3, Tree2));
-console.log(HasSubtree2(Tree1, Tree5));
-console.log(HasSubtree2(Tree1, Tree6));
-console.log(HasSubtree2(Tree1, Tree7));
-console.log(HasSubtree2(Tree1, Tree8));
-
-//解法一：递归判断
-function HasSubtree1(pRoot1, pRoot2)
-{ let result =false;
-if(pRoot1!=null&&pRoot2!=null){
-    if(pRoot1.val==pRoot2.val){
-        result=doseTree1HaveTree2(pRoot1,pRoot2);
-    }
-
-    if(!result){
-        result=HasSubtree1(pRoot1.left,pRoot2);
-    }
-
-    if(!result){
-        result=HasSubtree1(pRoot1.right,pRoot2);
-    }
-}
-return result;
-   }
-
-function doseTree1HaveTree2(root1,root2)
-{
-  if(root2==null)
-  return true;
-  if(root1==null)
-  return false;
-  if(root1.val!=root2.val)
-  return false;
-
-return doseTree1HaveTree2(root1.left,root2.left)&&doseTree1HaveTree2(root1.right,root2.right);
-}
-
- 
+console.log(HasSubtree(Tree3, Tree4));
+console.log(HasSubtree(Tree2, Tree3));
+console.log(HasSubtree(Tree3, Tree2));
+console.log(HasSubtree(Tree1, Tree5));
+console.log(HasSubtree(Tree1, Tree6));
+console.log(HasSubtree(Tree1, Tree7));
+console.log(HasSubtree(Tree1, Tree8));
 
 
-//解法2：利用||，&&的好短路性
-function HasSubtree2(pRoot1, pRoot2) {
+//参考代码
+//解法：利用||，&&的好短路性
+function HasSubtree(pRoot1, pRoot2) {
   if (!pRoot1 || !pRoot2) {
     return false;
   }
-  return isSubtree(pRoot1, pRoot2) || HasSubtree2(pRoot1.left, pRoot2) || HasSubtree2(pRoot1.right, pRoot2);
+  return isSubtree(pRoot1, pRoot2) || HasSubtree(pRoot1.left, pRoot2) || HasSubtree(pRoot1.right, pRoot2);
 }
  
 function isSubtree(root1, root2) {
@@ -140,7 +101,15 @@ function isSubtree(root1, root2) {
      <!-- 
      题目描述：
     输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
-     
+
+    短路性：
+    条件1||条件2||条件3……
+    ||从左到右进行判断，只要前面有一个条件为true，后面的条件都不用判断 整个为true；
+
+     条件1&&条件2&&条件3……
+    &&从左到右进行判断，只要前面有一个条件为false，后面的条件都不用判断 整个为false；
+
+    
 
      
      -->
