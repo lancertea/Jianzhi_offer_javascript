@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/19 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -9,31 +10,36 @@
 
 
 
-//测试用例：
+//测试用例
 seq1=[5,7,6,9,11,10,8];
 seq2=[7,4,6,5];
 seq3=null;
    
 
-
-console.log(VerifySquenceOfBST(seq1));
-console.log(VerifySquenceOfBST(seq2));
-console.log(VerifySquenceOfBST(seq3));
-console.log(VerifySquenceOfBST2(seq1));
-console.log(VerifySquenceOfBST2(seq2));
-console.log(VerifySquenceOfBST2(seq3));
+console.log(VerifySquenceOfBST1(seq1));
+console.log(VerifySquenceOfBST1(seq2));
+console.log(VerifySquenceOfBST1(seq3));
+// console.log(VerifySquenceOfBST(seq1));
+// console.log(VerifySquenceOfBST(seq2));
+// console.log(VerifySquenceOfBST(seq3));
+// console.log(VerifySquenceOfBST2(seq1));
+// console.log(VerifySquenceOfBST2(seq2));
+// console.log(VerifySquenceOfBST2(seq3));
 //console.log(PrintFromTopToBottom(Tree5));
 
-//解法一：剑指offer上的做法（报错）
-function VerifySquenceOfBST1(sequence)
+//参考代码
+//解法一：剑指offer上的做法，递归
+//对于一个序列S，最后一个元素是x（也就是根），如果去掉最后一个元素的序列为T，那么T满足：T可以分成两段，前一段（左子树）小于x，
+//后一段（右子树）大于x，且这两段（子树）都是合法的后序序列。
+function VerifySquenceOfBST(sequence)
 {
-  if(!sequence||sequence.length==0)
+  if(!sequence||sequence.length===0)
   return false;
   let root=sequence[sequence.length-1];
   let i=0;
   for(;i<sequence.length;i++)
   {
-      if(sequence[i]>root)
+      if(sequence[i]>=root)
       break;
   }
   for(let j=i;j<sequence.length;j++)
@@ -44,18 +50,18 @@ function VerifySquenceOfBST1(sequence)
 
   let left=true;
   if(i>0)
-  left=VerifySquenceOfBST1(sequence.slice(0,i));
+  left=VerifySquenceOfBST(sequence.slice(0,i));
 
   let right=true;
   if(i<sequence.length-1)
-  right=VerifySquenceOfBST1(sequence.slice(i,sequence.length-1));
+  right=VerifySquenceOfBST(sequence.slice(i,sequence.length-1));
 
   return(left&&right);
 }
 
-//解法2：递归
-function VerifySquenceOfBST(sequence)
-{if(!sequence||sequence.length==0)
+//解法二：递归（同解法一）
+function VerifySquenceOfBST1(sequence)
+{if(!sequence||sequence.length===0)
   return false;
   return judge(sequence,0,sequence.length-1);
 }
@@ -71,7 +77,9 @@ return false;
 return judge(arr,left,i-1)&&judge(arr,i,right-1);
 }
 
-//解法3：非递归
+//解法三：非递归
+//解题思路：从后序遍历序列的特点里可看出:左子树一定比右子树小，因此从最后一个元素（根）开始，逐个元素从右向左遍历均满足：一段（右子树）都比
+//根大（也可无这段），一段（左子树）都比根小（也可无这段）。
 function VerifySquenceOfBST2(sequence)
 {if(!sequence||sequence.length==0)
   return false;
@@ -79,14 +87,8 @@ let i=0,n=sequence.length;
 while(n--)
 {   
     while(sequence[i++]<sequence[n])
-    {
-        console.log(i);
-    }
-
     while(sequence[i++]>sequence[n])
-    {
-        console.log(i+'>');
-    }
+  
   if(i<n)
   return false;
   i=0;  
@@ -108,7 +110,7 @@ return true;
      若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 
      若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值；
       它的左、右子树也分别为二叉排序树。
-     
+    
      -->
      </body> 
      
