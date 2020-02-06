@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/19 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -15,7 +16,7 @@ function TreeNode(x) {
 } 
 
 
-//测试用例：
+//测试用例
 let Tree1 = new TreeNode(1); 
 let a1 = new TreeNode(2);
 Tree1.left = a1;
@@ -26,7 +27,7 @@ a1.left = c1;
 let d1 = new TreeNode(5); 
 a1.right = d1; 
 let e1 = new TreeNode(6); 
-c1.right = e1;   
+b1.right = e1;   
 
 let Tree2 = new TreeNode(1); 
 
@@ -41,20 +42,22 @@ let c5 = new TreeNode(4);
 a5.left = c5; 
    
 
-
+console.log(Tree1.length);//undefined
 console.log(PrintFromTopToBottom(Tree1));
 console.log(PrintFromTopToBottom(Tree2));
 console.log(PrintFromTopToBottom(Tree3));
 console.log(PrintFromTopToBottom(Tree5));
+console.log(PrintFromTopToBottom1(Tree1));
+console.log(PrintFromTopToBottom2(Tree1));
 
-
+//参考代码
 function PrintFromTopToBottom(root)
 {
     let queue=[],result=[];
     if(root==null) 
     return result;
     queue.push(root);
-    while(queue.length!=0)
+    while(queue.length)
     { 
         let temp = new TreeNode();
         temp = queue.shift();
@@ -68,9 +71,88 @@ function PrintFromTopToBottom(root)
     return result; 
 }
 
-    
-  
+//补充：分行从上到下打印二叉树
+//题目描述： 从上到下按层打印二叉树的每个节点，同层节点从左至右打印。每一层打印到一行
+//区别：第一题的结果输出为一个一维数组，补充题的结果输出为一个二维数组（分行打印）
 
+//解法一：用两个队列交替打印，可将层与层之间分开
+function PrintFromTopToBottom1(root)
+{
+    let queue1=[],
+        queue2=[],
+        result=[];
+    if(root==null) 
+    return result;
+    let temp = new TreeNode();
+    let layer=1;
+    queue1.push(root);
+    while(queue1.length||queue2.length)
+    {   
+        let arr=[];
+        if(parseInt(layer%2)!=0)
+   {
+        while(queue1.length)
+        {
+        temp = queue1.shift();
+        arr.push(temp.val);
+        if(temp.left!=null)
+        queue2.push(temp.left);
+        if(temp.right!=null)
+        queue2.push(temp.right);
+        }
+   }
+   else
+   {
+        while(queue2.length)
+        {
+        temp = queue2.shift();
+        arr.push(temp.val);
+        if(temp.left!=null)
+        queue1.push(temp.left);
+        if(temp.right!=null)
+        queue1.push(temp.right);
+        }
+   }   
+    result.push(arr);    
+    layer++; 
+    }
+    return result; 
+}
+
+//解法二：层序遍历的思想
+function PrintFromTopToBottom2(root)
+{
+    let queue=[],result=[];
+    if(root==null) 
+    return result;
+    queue.push(root);
+    let count=0,
+        nextcount=1,
+        arr=[];
+    while(queue.length)
+    {   
+        let temp = new TreeNode();
+        temp = queue.shift();
+        arr.push(temp.val);
+        count++;
+        if(temp.left!=null)
+        queue.push(temp.left);
+        if(temp.right!=null)
+        queue.push(temp.right);
+        if(count===nextcount)
+        {
+        result.push(arr);
+        nextcount=queue.length;
+        count=0;
+        arr=[];
+        } 
+    }
+    return result; 
+}
+
+//扩展题：
+// 38.二叉树的深度
+// 59.按之字形顺序打印二叉树
 
      </script>
      </head>
@@ -78,9 +160,12 @@ function PrintFromTopToBottom(root)
      <body>
      <!-- 
      题目描述：
-    从上往下打印出二叉树的每个节点，同层节点从左至右打印。
-     
-     
+    从上往下打印出二叉树的每个节点，同层节点从左至右打印。（层序遍历）（不分行） 
+    
+    解题思路：
+    每次打印一个节点时（初始化时为根节点），如果该节点有子节点，则把该节点的子节点（左、右）放到一个队列的末尾。
+    接下来到队列的头部取出最早进入队列的节点，重复上述操作，直至队列中所有的节点都被打印出来。
+
      
      -->
      </body> 
