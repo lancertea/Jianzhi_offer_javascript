@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/17 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -14,7 +15,7 @@ function TreeNode(x) {
     this.right = null;
 } 
 
-//测试用例：
+//测试用例
 let Tree1 = new TreeNode(1); 
 let a1 = new TreeNode(2);
 Tree1.left = a1;
@@ -29,6 +30,7 @@ c1.right = e1;
 console.log(TreeDepth(Tree1));
 console.log(TreeDepth1(Tree1));
 
+//参考代码
 //解法1：递归
 function TreeDepth(pRoot)
 {
@@ -45,7 +47,9 @@ function TreeDepth1(pRoot)
     if(!pRoot) return 0;
   let queue=[];
   queue.push(pRoot);
-  let depth=0,count=0,nextcount=1;
+  let depth=0, //树的深度
+      count=0,//这一层已经出队列的数目
+      nextcount=1; //此时队列的大小
   while(queue.length!=0)
   {   let top= new TreeNode();
       top =queue.shift();
