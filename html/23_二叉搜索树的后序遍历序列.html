@@ -14,18 +14,19 @@
 seq1=[5,7,6,9,11,10,8];
 seq2=[7,4,6,5];
 seq3=null;
+seq4=[4,8,6,12,16,14,10];
    
-
+console.log(VerifySquenceOfBST(seq1));
+console.log(VerifySquenceOfBST(seq2));
+console.log(VerifySquenceOfBST(seq3));
 console.log(VerifySquenceOfBST1(seq1));
 console.log(VerifySquenceOfBST1(seq2));
 console.log(VerifySquenceOfBST1(seq3));
-// console.log(VerifySquenceOfBST(seq1));
-// console.log(VerifySquenceOfBST(seq2));
-// console.log(VerifySquenceOfBST(seq3));
-// console.log(VerifySquenceOfBST2(seq1));
-// console.log(VerifySquenceOfBST2(seq2));
-// console.log(VerifySquenceOfBST2(seq3));
-//console.log(PrintFromTopToBottom(Tree5));
+console.log(VerifySquenceOfBST2(seq1));
+console.log(VerifySquenceOfBST2(seq2));
+console.log(VerifySquenceOfBST2(seq3));
+console.log(VerifySquenceOfBST2(seq4));
+
 
 //参考代码
 //解法一：剑指offer上的做法，递归
@@ -86,8 +87,8 @@ function VerifySquenceOfBST2(sequence)
 let i=0,n=sequence.length;
 while(n--)
 {   
-    while(sequence[i++]<sequence[n])
-    while(sequence[i++]>sequence[n])
+    while(sequence[i++]<sequence[n]);
+    while(sequence[i++]>sequence[n]);
   
   if(i<n)
   return false;
