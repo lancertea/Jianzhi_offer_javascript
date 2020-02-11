@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2020/01/05 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -28,48 +29,34 @@ let e = new TreeNode(12);
 b.left = e;
 let f = new TreeNode(16); 
 b.right = f;
+
+let tree1 = new TreeNode(10); 
+let a1 = new TreeNode(6);
+tree1.left = a1;
+let b1 = new TreeNode(14);
+tree1.right = b1;
+let c1 = new TreeNode(4); 
+a1.left = c1; 
+let d1 = new TreeNode(8); 
+a1.right = d1; 
+let e1 = new TreeNode(12); 
+b1.left = e1;
+let f1 = new TreeNode(16); 
+b1.right = f1;
   
 
 
 console.log(Convert(tree));
-console.log(Convert2(tree));
+console.log(Convert1(tree1));
 
-//解法1：递归  参数传递，有问题
-function Convert1(pRootOfTree)
-{
-  if(pRootOfTree==null)
-  return null;
-  let pre = new TreeNode();
-  //pre =null;
-  ConvertNode1(pRootOfTree, pre);
-  let res = new TreeNode();
-  res =pRootOfTree;
-  while(res.left)
-  res=res.left;
-  return res;
-}
-
-function ConvertNode1(cur, pre)
-{
-  if(cur==null)
-  return;
-  ConvertNode1(cur.left,pre);
-
-  cur.left=pre;
-  if(pre)
-  pre.right=cur;
-  pre=cur;
-
-  ConvertNode1(cur.right,pre);
-}
-
-//解法2 递归
+//参考代码
+//解法一 递归
 function Convert(pRootOfTree)
 {
   if(pRootOfTree==null)
   return null;
   let pre = null;
-  pre=ConvertNode(pRootOfTree, pre);
+  pre = ConvertNode(pRootOfTree, pre);
   let res = pre;
   while(res.left)
   res=res.left;
@@ -94,8 +81,8 @@ function ConvertNode(cur, pre)
   return pre;
 }
 
-//解法3：非递归
-function Convert2(pRootOfTree)
+//解法二：非递归：先中序遍历一遍，再加指针
+function Convert1(pRootOfTree)
 {
   if(pRootOfTree==null)
   return null;
@@ -138,7 +125,6 @@ function Convert2(pRootOfTree)
      题目描述：
    输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的双向链表。要求不能创建任何新的结点，只能调整树中结点指针的指向。
      
-     解题思路：
      
      
      -->
