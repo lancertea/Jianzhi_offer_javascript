@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2019/12/20 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -14,7 +15,7 @@ function RandomListNode(x){
     this.random = null;
 }
 
-//测试用例：
+//测试用例
 let List1 = new RandomListNode('A'); 
 let a1 = new RandomListNode('B');
 List1.next = a1;
@@ -27,13 +28,11 @@ c1.next = d1;
 List1.random=b1;
 a1.random=d1;
 c1.random=a1;
-  
-
-
 console.log(Clone(List1));
 console.log(Clone1(List1));
 
-//解法一
+//参考代码
+//解法一（剑指offer上的做法）
 function Clone(pHead)
 {
 if(pHead==null) return null;
@@ -69,7 +68,7 @@ while(currNode.next)
 return pCloneHead;
 }
 
-//解法2
+//解法二
 function Clone1(pHead)
 {
 if(pHead==null) return null;
@@ -80,7 +79,7 @@ pcHead.next=Clone1(pHead.next);
 return pcHead;
 }
 
-//解法3 如何用哈希表做呢
+
 
      </script>
      </head>
