@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2020/01/06 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -10,9 +11,10 @@
 
 
 
-//测试用例：
+//测试用例
 let a ='abc';
 let b ='abb';
+let c ='cba';
 // let b ={};
 // let c='a';
 // console.log(b[c]);
@@ -20,11 +22,22 @@ let b ='abb';
 
 console.log(Permutation(a));
 console.log(Permutation(b));
+console.log(Permutation(c));
+console.log(Permutation1(a));
+console.log(Permutation1(b));
+console.log(Permutation1(c));
+//console.log(Permutation2(a));
+// console.log(Permutation2(b));
+// console.log(Permutation2(c));
+console.log(Permutation3(a));
+console.log(Permutation3(b));
+console.log(Permutation3(c));
 
-//解法1：递归
+//参考代码
+//解法一：递归 思路同剑指offer
 function Permutation(str)
 {
- let res=[];
+ let res=[];//存储结果
  let len=str.length;
  if(len===0)
  res.push();
@@ -47,9 +60,129 @@ function Permutation(str)
      }
  }
 }
+return res.sort();
+}
+
+//解法二 全排列算法+去重+按字典序排序
+function Permutation1(str)
+{
+ let res=[];
+ if(str.length===0)
+ return res;
+ let arr=str.split("");//将字符串转换为字符数组
+ res = Permutate(arr,0,res);
+ res=[...new Set(res)];//去重
+ res.sort(); //按字典序排序
+ return res;
+}
+
+function Permutate(arr,index,res)
+{
+if(arr.length===index)
+{
+  let s='';
+  for(let i=0;i<arr.length;i++)
+  {
+  s+=arr[i];
+  }
+return res.push(s);
+}
+else
+{
+for(let i=index;i<arr.length;i++)
+{
+[arr[index],arr[i]]=[arr[i],arr[index]];//将每个位置的数据交换到第一位
+Permutate(arr,index+1,res); //按相同方式全排列剩余的位
+[arr[index],arr[i]]=[arr[i],arr[index]]; //复位
+}
+}
 return res;
 }
 
+/*
+解法三 字典序法
+  生成给定全排列的下一个排列，所谓一个的下一个就是这一个与下一个之间没有其他的。这就要求这一个与下一个有尽可能长的共同前缀，也即变化限制在尽可能短的后缀上。
+  eg:839647521是1--9的排列。1—9的排列最前面的是123456789，最后面的987654321，从右向左扫描若都是增的，就到了987654321，也就没有下一个了。否则找出第一次出现下降的位置。
+  
+  如何得到346987521的下一个
+  (1).从尾部往前找第一个P(i-1) < P(i)的位置
+  3 4 6 <- 9 <- 8 <- 7 <- 5 <- 2 <- 1
+        最终找到6是第一个变小的数字，记录下6的位置i-1
+
+  (2).从i位置往后找到最后一个大于6的数
+  3 4 6 -> 9 -> 8 -> 7 5 2 1
+        最终找到7的位置，记录位置为m
+
+  (3).交换位置i-1和m的值
+  3 4 7 9 8 6 5 2 1
+
+  (4).倒序i位置后的所有数据
+  3 4 7 1 2 5 6 8 9
+
+    则347125689为346987521的下一个排列
+*/
+//运算太复杂，没法调试
+function Permutation2(str)
+{
+ let res=[];
+if(str.length===0)
+return res;
+let arr = str.split(""),
+    len=arr.length;
+arr.sort();
+while(true)
+{
+let rtol =len-1,
+    ltor;
+while(rtol>0&&arr[rtol-1]>=arr[rtol])
+    rtol--;
+if(rtol===0)
+  break;
+ltor=rtol;
+while(ltor<len&&arr[ltor]>arr[rtol-1])
+   ltor++;
+[arr[rtol],arr[ltor]]=[arr[ltor],arr[rtol]];
+ arr.reverse(rtol);
+ res.push(arr);
+}
+return res;
+}
+
+//解法四 回溯法
+function Permutation3(str)
+{
+  let res=[],
+      pstr="";
+if(str.length===0)
+return res;
+let arr=str.split("");
+res=permutate(arr,pstr,res);
+res.sort();
+return res;
+}
+
+function permutate(arr,pstr,res)
+{
+  if(arr.length===0)
+  return res.push(pstr);
+  else
+  {
+    let obj =new Set();
+    for(let i=0;i<arr.length;i++)
+    {
+      if(!obj.has(arr[i]))
+      {
+        let c=arr.splice(i,1)[0];//c是字符串'x'，如果不加[0]，生成的是包含一个字符串的数组["x"]
+        pstr+=c;
+        permutate(arr,pstr,res);
+        arr.splice(i,0,c);//恢复字符串，回溯
+        pstr=pstr.slice(0,pstr.length-1);//回溯
+        obj.add(c);
+      }
+    }
+  }
+return res;
+}
      </script>
      </head>
      
@@ -61,7 +194,6 @@ return res;
      输入描述:
    输入一个字符串,长度不超过9(可能有字符重复),字符只包括大小写字母。
      
-     解题思路：
      
      
      -->
