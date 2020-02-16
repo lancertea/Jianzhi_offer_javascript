@@ -1,0 +1,71 @@
+<!-- author:lancer
+     date:2020/02/16 -->
+
+     <!DOCTYPE html>
+     <html>
+     <head>
+     <meta charset="utf-8">
+     <title>剑指offer-27.字符串的排列相关扩展1_字符串的组合</title>
+     <script>
+
+
+
+
+//测试用例
+let a ='abc';
+let b ='abb';
+
+console.log(a);
+console.log(b);
+
+//参考代码
+/*解题思路
+在求长度为n的字符串的组合时，我们要遍历从1到n所有的子串，当求长度为m(1≤m≤n)的组合时，可以把那个字符分成两部分：第一个字符和其余所有的字符。此时就分为两种情况了：
+(1)组合包含第一个字符，则下一步在剩余字符里选取m-1个字符。
+(2)组合不包含第一个字符，则下一步在剩余的n-1个字符中选取m个字符。
+很明显，这个用递归实现比较清晰。总的来说，可以把求n个字符组成对的长度为m的组合问题分成两个子问题，即分别求n-1个字符中长度为m-1的组合；以及求n-1个字符中长度为m的组合。
+*/
+function combination(str)
+{
+let res=[];
+if(!str||str.length===0)
+return res;
+let arr =res.split("");
+for(let i=1;i<=arr.length;i++)
+{
+combinate(arr,0,i,res);//从数组第一个字符开始，依次取num个(1≤num≤字符串长度)
+}
+return res;
+}
+
+function combinate(arr,index,num,res)
+{
+if(index===0)
+{
+  let s='';
+  for(let i=0;i<arr.length;i++)
+  {
+  s+=arr[i];
+  }
+return res.push(s);
+}
+else
+{
+for(let i=index;i<arr.length;i++)
+{
+
+}
+}
+}
+
+     </script>
+
+     <body>
+     <!-- 
+     题目描述：
+   输入一个字符串,输出它的所有组合。例如输入字符串abc,它的所有组合为a、b、c、ab、ac、bc、abc。
+ 
+     -->
+     </body> 
+     
+     </html>
