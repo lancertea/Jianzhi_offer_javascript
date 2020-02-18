@@ -15,8 +15,10 @@
 let a ='abc';
 let b ='abb';
 
-console.log(a);
-console.log(b);
+console.log(combination(a));
+console.log(combination(b));
+console.log(getCombination(a));
+console.log(getCombination(b));
 
 //参考代码
 /*解题思路
@@ -25,38 +27,59 @@ console.log(b);
 (2)组合不包含第一个字符，则下一步在剩余的n-1个字符中选取m个字符。
 很明显，这个用递归实现比较清晰。总的来说，可以把求n个字符组成对的长度为m的组合问题分成两个子问题，即分别求n-1个字符中长度为m-1的组合；以及求n-1个字符中长度为m的组合。
 */
+//Undefined怎么处理
 function combination(str)
 {
-let res=[];
+let res=[],
+    pstr=[];
 if(!str||str.length===0)
 return res;
-let arr =res.split("");
+let arr =str.split("");
 for(let i=1;i<=arr.length;i++)
 {
-combinate(arr,0,i,res);//从数组第一个字符开始，依次取num个(1≤num≤字符串长度)
+res.push(combinate(arr,0,i,pstr,res));//从数组第一个字符开始，依次取num个(1≤num≤字符串长度)
+
 }
+res=[...new Set(res)];
 return res;
 }
 
-function combinate(arr,index,num,res)
+function combinate(arr,index,num,pstr,res)
 {
-if(index===0)
+if(num===0)
 {
-  let s='';
-  for(let i=0;i<arr.length;i++)
-  {
-  s+=arr[i];
-  }
+let s='';
+for(let j=0;j<pstr.length;j++)
+s+=pstr[j];
 return res.push(s);
 }
-else
+if(index>arr.length-1)
 {
-for(let i=index;i<arr.length;i++)
-{
+return; 
+}
+pstr.push(arr[index]);
+combinate(arr,index+1,num-1,pstr,res);
+pstr.pop();
+combinate(arr,index+1,num,pstr,res); 
+}
 
+function getCombination(str){
+    if(!str||str.length===0)
+    return [];
+    if(str.length === 1){
+        return [str]
+    }
+
+    let arr1 = arguments.callee(str.slice(1));
+    let res1 = arr1.map(x => str[0]+x);
+    let res2 = arguments.callee(str.slice(1));
+    let res3 = [str[0]]
+    return [...new Set(res1.concat(res2,res3))];
 }
-}
-}
+
+
+
+
 
      </script>
 
