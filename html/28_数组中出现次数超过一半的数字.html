@@ -1,5 +1,6 @@
 <!-- author:lancer
      date:2020/01/07 -->
+
      <!DOCTYPE html>
      <html>
      <head>
@@ -26,7 +27,7 @@ console.log(MoreThanHalfNum_Solution2(a));
 console.log(MoreThanHalfNum_Solution2(b));
 console.log(MoreThanHalfNum_Solution2(c));
 
-
+//参考代码
 //解法1：常规做法
 function MoreThanHalfNum_Solution(numbers)
 {
@@ -58,7 +59,7 @@ function sortnumber(a,b)
 function MoreThanHalfNum_Solution1(numbers)
 {
   if(!numbers||numbers.length==0)
-  return 0;
+  return false;
   if(numbers.length==1)
   return numbers[0];
   let result = numbers[0];
@@ -94,7 +95,7 @@ function MoreThanHalfNum_Solution2(numbers)
      if(a.has(numbers[i]))
      { 
      count=a.get(numbers[i]);
-     a.set(numbers[i],++count);//为什么这里++count 和count++完全不一样
+     a.set(numbers[i],++count);
      }
      else
      a.set(numbers[i],1);
