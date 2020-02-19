@@ -27,7 +27,6 @@ console.log(getCombination(b));
 (2)组合不包含第一个字符，则下一步在剩余的n-1个字符中选取m个字符。
 很明显，这个用递归实现比较清晰。总的来说，可以把求n个字符组成对的长度为m的组合问题分成两个子问题，即分别求n-1个字符中长度为m-1的组合；以及求n-1个字符中长度为m的组合。
 */
-//Undefined怎么处理
 function combination(str)
 {
 let res=[],
@@ -40,7 +39,8 @@ for(let i=1;i<=arr.length;i++)
 res.push(combinate(arr,0,i,pstr,res));//从数组第一个字符开始，依次取num个(1≤num≤字符串长度)
 
 }
-res=[...new Set(res)];
+res=[...new Set(res)]; //数组去重
+res=res.filter(Boolean);  //消除undefined
 return res;
 }
 
