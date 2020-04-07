@@ -76,12 +76,12 @@
                 let res = [],
                     n = 2 * k,
                     len = Math.ceil((str.length) / n);
-                for (let i = 0; i < len; i++){
-                    res.push(str.substr(i*n,n));
+                for (let i = 0; i < len; i++) {
+                    res.push(str.substr(i * n, n));
                 }
 
-                res=res.map(item=>{
-                   return item.substr(0,k).split('').reverse().join('')+item.substr(k);
+                res = res.map(item => {
+                    return item.substr(0, k).split('').reverse().join('') + item.substr(k);
                 })
 
                 return res.join('');
