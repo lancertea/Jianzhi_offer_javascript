@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>计数二进制子串</title>
+    <script>
+        {
+            let s1 = "00110011";
+             console.log(count(s1));
+            let s2="10101"
+            console.log(count(s2));
+
+            function count(s) {
+                let res = [],
+                    match = (s) => {
+                    //match是String的方法，参数是正则表达式，返回值是数组，没有找到时返回的是null。
+                    //test是RegExp的方法，参数是字符串，返回值是boolean类型
+                        let j = s.match(/^(0+|1+)/)[0],
+                            o = (j[0] ^ 1).toString().repeat(j.length);
+                    //match
+                    if(s.match(j+o)){
+                        return j+o;
+                    }
+                    else{
+                        return '';
+                    }
+                    //test
+                    // let reg=new RegExp(`^(${j}${o})`);
+                    // if(reg.test(s)){
+                    //     return RegExp.$1;
+                    // }
+                    // else{
+                    //     return '';
+                    // }
+                    }
+                for (let i = 0; i < s.length - 1; i++) {
+                    let sub = match(s.slice(i));
+                    if (sub) {
+                        res.push(sub);
+                    }
+                }
+                return res;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 
+     题目描述：
+   给定一个字符串 s，计算具有相同数量0和1的非空(连续)子字符串的数量，并且这些子字符串中的所有0和所有1都是组合在一起的。
+   重复出现的子串要计算它们出现的次数。
+
+
+    示例：
+    input:  "00110011"
+    output:6
+
+    解释: 有6个子串具有相同数量的连续1和0：“0011”，“01”，“1100”，“10”，“0011” 和 “01”。
+    请注意，一些重复出现的子串要计算它们出现的次数。
+    另外，“00110011”不是有效的子串，因为所有的0（和1）没有组合在一起。
+
+    知识点：
+    String.prototype.slice
+    String.prototype.match
+    https://www.w3school.com.cn/jsref/jsref_match.asp
+    String.prototype.repeat
+
+    RegExp.prototype.test
+
+
+
+     -->
+</body>
+
+</html>
