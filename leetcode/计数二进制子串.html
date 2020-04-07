@@ -14,7 +14,7 @@
             function count(s) {
                 let res = [],
                     match = (s) => {
-                    //match是String的方法，参数是正则表达式，返回值是数组，没有找到时返回的是null。
+                    //match是String的方法，参数是正则表达式或者字符串，返回值是数组，没有找到时返回的是null。
                     //test是RegExp的方法，参数是字符串，返回值是boolean类型
                         let j = s.match(/^(0+|1+)/)[0],
                             o = (j[0] ^ 1).toString().repeat(j.length);
