@@ -7,43 +7,96 @@
     <script>
         {
             let a1 = [1, 2, 3, 4, 4, 3, 2, 1],
-                a2 = [1, 2, 1, 2, 2, 2];
+                a2 = [1, 2, 1, 2, 2, 2],
+                a3 = [1, 1, 1, 2, 2, 2, 3, 3];
             console.log(group(a1));
             console.log(group(a2));
+            console.log(group(a3));
+
 
 
 
             function group(arr) {
-            arr.sort((a,b)=>a-b);
-            let min =Number.MAX_SAFE_INTEGER,
-            dist=[],
-            result=true,
-            tmp=[];
-            for(let i=0;i<arr.length;i++){
-                tmp.push(arr[i]);
-                for(let j=i+1;j<arr.length-1;j++){
-                    if(arr[i]===arr[j]){
-                        tmp.push(arr[j])
-                    }
-                    else{
-                        if(min>tmp.length){
-                            min=tmp.length;
-                        }
-                        dist.push([].concat(tmp));//备份数组
-                        tmp.length=0;//清空数组
-                        i=j;
-                        break;
-                    }
-                }
-            }
-            dist.every((item=>{
-                if(item.length%min!==0){
-                    result=false;
+                if (arr.length <= 1)
                     return false;
+                arr.sort((a, b) => a - b);
+                let min = Number.MAX_SAFE_INTEGER,
+                    dist = [],
+                    result = true,
+                    tmp = [];
+                for (let i = 0; i < arr.length - 1; i++) {
+                    tmp.push(arr[i]);
+                    for (let j = i + 1; j < arr.length; j++) {
+                        if (arr[i] === arr[j]) {
+                            tmp.push(arr[j])
+                        } else {
+                            if (min > tmp.length) {
+                                min = tmp.length;
+                            }
+                            dist.push([].concat(tmp)); //备份数组
+                            tmp.length = 0; //清空数组
+                            i = j - 1;
+                            break;
+                        }
+                    }
                 }
-            }))
-            return result;
+                dist.every(item => {
+                    if ((item.length % min !== 0) || (min < 2)) {
+                        result = false;
+                        return false;
+                    }
+                })
+                return result;
             }
+        }
+
+        {
+
+            /**
+             * @param {number[]} deck
+             * @return {boolean}
+             */
+            var hasGroupsSizeX = function (deck) {
+                // 最大公约数计算公式
+                function gcd(num1, num2) {
+                    // 利用辗转相除法来计算最大公约数
+                    return num2 === 0 ? num1 : gcd(num2, num1 % num2);
+                }
+
+                // 相同牌出现次数Map
+                let timeMap = new Map();
+
+                // 遍历牌
+                deck.forEach(num => {
+                    // 统计每张牌出现的次数
+                    timeMap.set(num, timeMap.has(num) ? timeMap.get(num) + 1 : 1);
+                });
+
+                // Map.protype.values()返回的是一个新的Iterator对象，所以可以使用扩展运算符(...)来构造成数组
+                let timeAry = [...timeMap.values()];
+
+                /*
+                最大公约数
+                因为该数组是出现次数数组，最小值至少为1（至少出现1次），所以默认赋值为数组首位对公约数计算无干扰
+                */
+                let g = timeAry[0];
+
+                // 遍历出现次数，计算最大公约数
+                timeAry.forEach(time => {
+                    // 因为需要比较所有牌出现次数的最大公约数，故需要一个中间值
+                    g = gcd(g, time);
+                });
+
+                // 判断是否满足题意
+                return g >= 2;
+            };
+
+            let a1 = [1, 2, 3, 4, 4, 3, 2, 1],
+                a2 = [1, 2, 1, 2, 2, 2],
+                a3 = [1, 1, 1, 2, 2, 2, 3, 3];
+            console.log(hasGroupsSizeX(a1));
+            console.log(hasGroupsSizeX(a2));
+            console.log(hasGroupsSizeX(a3));
         }
     </script>
 </head>
