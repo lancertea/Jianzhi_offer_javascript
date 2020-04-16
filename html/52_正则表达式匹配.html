@@ -1,66 +1,63 @@
 <!-- author:lancer
      date:2019/12/25 -->
-     <!DOCTYPE html>
-     <html>
-     <head>
-     <meta charset="utf-8">
-     <title>剑指offer-52.正则表达式匹配</title>
-     <script>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>剑指offer-52.正则表达式匹配</title>
+  <script>
+    //测试用例
+    s1 = "aaa";
+    p1 = "a.a";
+    p2 = "ab*ac*a";
+    p3 = "aa.a";
+    p4 = "ab*a";
+
+    console.log(match(s1, p1));
+    console.log(match(s1, p2));
+    console.log(match(s1, p3));
+    console.log(match(s1, p4));
 
 
+    //解法：
+    function match(s, pattern) {
+      if (s == null || pattern == null)
+        return false;
+      let sIndex = 0,
+        patternIndex = 0;
+      return matchCore(s, sIndex, pattern, patternIndex);
+    }
 
-//测试用例
-s1="aaa";
-p1="a.a";
-p2="ab*ac*a";
-p3="aa.a";
-p4="ab*a";
+    function matchCore(s, sIndex, pattern, patternIndex) {
+      if (sIndex == s.length && patternIndex == pattern.length)
+        return true;
+      if (sIndex != s.length && patternIndex == pattern
+        .length) //sIndex==s.length&&patternIndex!=pattern.length 也有可能true，比如s="aaa" pattern="aaab*"
+        return false;
+      if ((patternIndex + 1 < pattern.length) && (pattern[patternIndex + 1] == '*')) {
+        if ((sIndex != s.length) && ((pattern[patternIndex] == s[sIndex]) || (pattern[patternIndex] == '.')))
+          return matchCore(s, sIndex, pattern, patternIndex + 2) || matchCore(s, sIndex + 1, pattern, patternIndex +
+            2) || matchCore(s, sIndex + 1, pattern, patternIndex);
+        else
+          return matchCore(s, sIndex, pattern, patternIndex + 2);
+      }
+      if ((sIndex != s.length) && ((pattern[patternIndex] == s[sIndex]) || (pattern[patternIndex] == '.')))
+        return matchCore(s, sIndex + 1, pattern, patternIndex + 1);
+      else
+        return false;
+    }
+  </script>
+</head>
 
-console.log(match(s1, p1));
-console.log(match(s1, p2));
-console.log(match(s1, p3));
-console.log(match(s1, p4));
-
-
-//解法：
-function match(s, pattern)
-{
-  if(s==null||pattern==null)
-  return false;
-  let sIndex=0,patternIndex=0;
-  return matchCore(s,sIndex,pattern,patternIndex);
-}
-
-function matchCore(s,sIndex,pattern,patternIndex)
-{
-  if(sIndex==s.length&&patternIndex==pattern.length)
-  return true;
-  if(sIndex!=s.length&&patternIndex==pattern.length)//sIndex==s.length&&patternIndex!=pattern.length 也有可能true，比如s="aaa" pattern="aaab*"
-  return false;  
-  if((patternIndex+1<pattern.length)&&(pattern[patternIndex+1]=='*'))
-  {if((sIndex!=s.length)&&((pattern[patternIndex]==s[sIndex])||(pattern[patternIndex]=='.')))
-  return matchCore(s,sIndex,pattern,patternIndex+2)||matchCore(s,sIndex+1,pattern,patternIndex+2)||matchCore(s,sIndex+1,pattern,patternIndex);
-  else
-  return matchCore(s,sIndex,pattern,patternIndex+2);
-  }
-  if((sIndex!=s.length)&&((pattern[patternIndex]==s[sIndex])||(pattern[patternIndex]=='.')))
-  return matchCore(s,sIndex+1,pattern,patternIndex+1);
-  else
-  return false;
-}
-
-
-     </script>
-     </head>
-     
-     <body>
-     <!-- 
+<body>
+  <!-- 
      题目描述：
     请实现一个函数用来匹配包括'.'和'*'的正则表达式。模式中的字符'.'表示任意一个字符，而'*'表示它前面的字符可以出现任意次（包含0次）。 
     在本题中，匹配是指字符串的所有字符匹配整个模式。例如，字符串"aaa"与模式"a.a"和"ab*ac*a"匹配，但是与"aa.a"和"ab*a"均不匹配
 
      
      -->
-     </body> 
-     
-     </html>
+</body>
+
+</html>
