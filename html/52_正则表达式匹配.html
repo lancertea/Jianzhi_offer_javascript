@@ -37,7 +37,8 @@
         return false;
       if ((patternIndex + 1 < pattern.length) && (pattern[patternIndex + 1] == '*')) {
         if ((sIndex != s.length) && ((pattern[patternIndex] == s[sIndex]) || (pattern[patternIndex] == '.')))
-          return matchCore(s, sIndex, pattern, patternIndex + 2) || matchCore(s, sIndex + 1, pattern, patternIndex +
+          return matchCore(s, sIndex, pattern, patternIndex + 2) ||
+           matchCore(s, sIndex + 1, pattern, patternIndex +
             2) || matchCore(s, sIndex + 1, pattern, patternIndex);
         else
           return matchCore(s, sIndex, pattern, patternIndex + 2);
