@@ -15,6 +15,7 @@
                 // 把数组的每个字母都分割开
                 //  let arr=str.split(''),
                 // 以空格分隔字符串
+                //str.match(/[\w']+/g).map...
                 let arr = str.split(' '); //split(/\s/g)
                 let res = arr.map(item => {
                     return item.split('').reverse().join('');
