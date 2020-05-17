@@ -44,6 +44,29 @@
                 return res;
             }
         }
+
+        {
+        let countBinarySubstrings=function(s){
+          let res=0,pre=0,curr=1;
+          for(let i=0;i<s.length-1;i++){
+          if(s[i]===s[i+1]){
+          curr++;
+          }else{
+          pre=curr;
+          curr=1;  
+          }
+          if(pre>=curr){
+            res++;
+          }
+          }
+          return res;
+        }
+
+        let s = '00110011';
+        console.log(countBinarySubstrings(s));
+        
+
+        }
     </script>
 </head>
 
