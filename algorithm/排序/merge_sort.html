@@ -1,0 +1,108 @@
+<!-- author:lancer
+     date:2020/03/05 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>归并排序</title>
+    <script>
+        /*
+        归并算法应用到分治策略，简单说就是把一个大问题分解成易于解决的小问题后一个个解决，最后再把小问题一步步合并成大问题的解。
+        归并排序应用递归来把数组分解成一个个小数组，直到小数组的数位有序，再把有序的小数组两两合并而成有序的大数组。
+        
+        稳定性：稳定
+        最差、最优、平均时间复杂度都为O(nlogn)
+        辅助空间O(n)
+        */
+
+
+        //测试用例
+        let a = [3, 1, 6, 2, 5, 8, 4, 7];
+
+        console.log(mergeSort(a));
+        console.log(mergeSort1(a));
+        
+
+        //参考代码
+        function mergeSort(a) {
+            if (a.length === 1)
+                return a;
+            let mid = a.length >> 1,
+                left = a.slice(0, mid),
+                right = a.slice(mid);
+            return merge(mergeSort(left), mergeSort(right));
+        }
+
+        function merge(left, right) {
+            let res = [];
+            while (left.length && right.length) {
+                if (left[0] < right[0]) {
+                    res.push(left.shift());
+                } else {
+                    res.push(right.shift());
+                }
+            }
+            return res.concat(left, right);
+        }
+
+        /*
+        上面的归并排序的代码相当简单直观，但是mergeSort()函数会导致很频繁的自调用。一个长度为n的数组最终会调用mergeSort() 2*n-1次，
+        这意味着如果需要排序的数组长度很大时，会在某些栈小的浏览器上发生栈溢出错误。
+        关于递归调用时浏览器的栈大小限制，可以以下代码去测试:
+
+        var cnt = 0;
+        try {
+            (function () {
+                cnt++;
+                arguments.callee();
+            })();
+        } catch (e) {
+            console.log(e.message, cnt);
+        }
+        
+        遇到栈溢出错误并不一定要修改整个算法，只是表明递归不是最好的实现方式。这个合并排序算法同样可以迭代实现：
+        */
+        function merge1(left, right) {
+            let result = [];
+            while (left.length && right.length) {
+                if (left[0] < right[0])
+                    result.push(left.shift());
+                else
+                    result.push(right.shift());
+            }
+            return result.concat(left, right);
+        }
+
+        function mergeSort1(a) {
+            if (a.length === 1)
+                return a;
+            let work = [],
+                len = a.length;
+            for (let i = 0; i < len; i++)
+                work.push([a[i]]);
+            work.push([]); // 如果数组长度为奇数
+            let last = 0;
+            for (let lim = len; lim > 1; lim = (lim + 1) >> 1) {
+                for (let j = 0, k = 0; k < lim; j++, k += 2) {
+                    work[j] = merge1(work[k], work[k + 1]);
+                    last = j;
+                }
+                work[last + 1] = []; // 如果数组长度为奇数
+            }
+            return work[0];
+        }
+    //这个版本的mergeSort()函数功能与前例相同却没有使用递归。尽管迭代版本的合并排序算法比递归实现要慢一些，
+    //但它并不会像递归版本那样受调用栈限制的影响。把递归算法改用迭代实现是实现栈溢出错误的方法之一。
+
+    /*
+    参考：https://www.cnblogs.com/wuguanglin/p/mergeSort.html
+    */
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

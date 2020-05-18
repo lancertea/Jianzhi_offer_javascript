@@ -1,0 +1,60 @@
+<!-- author:lancer
+     date:2020/03/16 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>堆排序</title>
+    <script>
+        /*
+          堆排序是一种选择排序，堆是具有以下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆。
+          a.将无需序列构建成一个堆，根据升序降序需求选择大顶堆或小顶堆;
+　　      b.将堆顶元素与末尾元素交换，将最大元素"沉"到数组末端;
+　　      c.重新调整结构，使其满足堆定义，然后继续交换堆顶元素与当前末尾元素，反复执行调整+交换步骤，直到整个序列有序。
+                  
+        稳定性：不稳定
+        最坏，最好，平均时间复杂度均为O(nlogn)
+        空间复杂度O(1)
+             */
+        //测试用例
+        let a = [3, 1, 6, 2, 5, 8, 4, 7];
+        heapSort(a)
+        console.log(a);
+        
+
+        //参考代码
+        function heapSort(a) {
+            //从最后一个非叶子节点开始，从左至右，从下至上进行调整
+            for (let i = Math.floor(a.length / 2 - 1); i >= 0; i--) {
+                heap(a, a.length, i);
+            }
+            for (let i = a.length - 1; i > 0; i--) {
+                [a[i], a[0]] = [a[0], a[i]];
+                heap(a, i, 0);
+            }
+        }
+
+        function heap(arr, size, index) {
+            let largest = index,
+                left = 2 * index + 1,
+                right = 2 * index + 2;
+            if (arr[left] > arr[largest] && left < size) {
+                largest = left;
+            }
+            if (arr[right] > arr[largest] && right < size) {
+                largest = right;
+            }
+            if (largest != index) {
+                [arr[largest], arr[index]] = [arr[index], arr[largest]];
+                heap(arr, size, largest);
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

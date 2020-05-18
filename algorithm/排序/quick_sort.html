@@ -1,0 +1,140 @@
+<!-- author:lancer
+     date:2020/03/03 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>快速排序</title>
+    <script>
+        /*
+        快速排序的思想：
+            1.在数组中找到一个基准数（pivot）
+            2.分区，将数组中比基准数大的放到它的右边，比基准数小的放到它的左边
+            3.继续对左右区间重复第二步，直到各个区间只有一个数，这时候，数组也就有序了。
+     
+        稳定性：不稳定
+        最差时间复杂度：每次选取的基准元素都为最大（或最小元素）导致每次只划分了一个分区，需要进行n-1次划分才能结束递归，故复杂度为O(n^2)；
+        最优时间复杂度：每次选取的基准元素都是中位数，于是每次都划分出两个分区，需要进行logn次递归，故时间复杂度为O(nlogn)；
+        平均时间复杂度：O(nlogn)
+        空间复杂度：O(nlogn)(递归调用消耗)
+        
+            
+        */
+        //测试用例
+        let a = [5, 2, 6, 2, 9, 10, 5];
+        let b = [3, 1, 6, 2, 5, 8, 4, 7];
+        quick(a, 0, a.length - 1);
+        // quick(b, 0, b.length - 1);
+        console.log(a);
+        //console.log(b);
+
+        let a1 = [5, 2, 6, 2, 9, 10, 5];
+        let b1 = [3, 1, 6, 2, 5, 8, 4, 7];
+        quick1(a1, 0, a1.length - 1);
+        quick1(b1, 0, b1.length - 1);
+        console.log(a1);
+        console.log(b1);
+
+        let a2 = [5, 2, 6, 2, 9, 10, 5];
+        let b2 = [3, 1, 6, 2, 5, 8, 4, 7];
+        console.log(quickSort(a2));
+        console.log(quickSort(b2));
+
+
+
+
+
+        //参考代码
+        function quick(arr, left, right) {
+            if (left == right) return;
+            let index = partition(a, left, right);
+            if (left < index)
+                quick(arr, left, index - 1);
+            if (index < right)
+                quick(arr, index + 1, right);
+        }
+
+        function partition(a, left, right) {
+            let key = a[left];
+            while (left < right) {
+                while (key <= a[right] && left < right) {
+                    right--;
+                }
+                [a[left], a[right]] = [a[right], a[left]];
+
+                while (key >= a[left] && left < right) {
+                    left++;
+                }
+                [a[left], a[right]] = [a[right], a[left]];
+            }
+            return left;
+        }
+
+        //改进版：三值取中
+        function quick1(a, left, right) {
+            if (left == right)
+                return;
+            let index = partition1(a, left, right);
+            if (left < index)
+                quick1(a, left, index - 1);
+            if (index < right)
+                quick1(a, index + 1, right);
+        }
+
+        function partition1(a, left, right) {
+            let key = getkey(a, left, right);
+            while (left < right) {
+                while (key <= a[right] && left < right) {
+                    right--;
+                }
+                [a[left], a[right]] = [a[right], a[left]];
+                while (key >= a[left] && left < right) {
+                    left++;
+                }
+                [a[left], a[right]] = [a[right], a[left]];
+            }
+            return left;
+        }
+
+        function getkey(a, left, right) {
+            let mid = left + Math.floor((right - left) / 2);
+            if (a[mid] > a[right]) {
+                [a[mid], a[right]] = [a[right], a[mid]];
+            }
+            if (a[left] > a[right]) {
+                [a[left], a[right]] = [a[right], a[left]];
+            }
+            if (a[mid] > a[left]) {
+                [a[mid], a[left]] = [a[left], a[mid]];
+            }
+            return a[left]; //现在a[mid]<a[left]<a[right];
+        }
+
+
+        //阮一峰老师的做法：
+        function quickSort(arr) {
+            if (arr.length <= 1)
+                return arr;
+            var pivotIndex = Math.floor(arr.length / 2),
+                pivot = arr.splice(pivotIndex, 1)[0],
+                left = [],
+                right = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] < pivot) {
+                    left.push(arr[i]);
+                } else {
+                    right.push(arr[i]);
+                }
+            }
+            return quickSort(left).concat([pivot], quickSort(right));
+
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

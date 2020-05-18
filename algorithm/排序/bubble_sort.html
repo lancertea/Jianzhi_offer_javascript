@@ -1,0 +1,43 @@
+<!-- author:lancer
+     date:2020/02/24 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>冒泡排序</title>
+    <script>
+        /*
+        升序：
+        从左到右不断交换相邻逆序的元素，在一轮的循环之后，可以让未排序的最大元素上浮到右侧。
+        在一轮循环中，如果没有发生交换，那么说明数组已经是有序的，此时可以直接退出。
+
+        稳定性：稳定
+       最差、平均时间复杂度为O(n^2)
+       空间复杂度O(1)
+        */
+        //测试用例
+        let a = [3, 1, 6, 2, 5, 8, 4, 7];
+        bubble(a);
+        console.log(a);
+
+        //参考代码
+        function bubble(arr) {
+            //外层，需要遍历的次数
+            for (let i = 1; i < arr.length; i++)
+                //内层，每次比较,arr.length - i记录了每次遍历后最后上浮数的位置，减少外层循环次数
+                for (let j = 0; j < arr.length - i; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                    }
+                }
+
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
