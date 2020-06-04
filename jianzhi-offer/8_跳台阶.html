@@ -1,44 +1,35 @@
 <!-- author:lancer
      date:2019/12/02 -->
 
-     <!DOCTYPE html>
-     <html>
-     <head>
-     <meta charset="utf-8">
-     <title>剑指offer-8.跳台阶</title>
-     <script>
+<!DOCTYPE html>
+<html>
 
-
-    //测试用例
-    console.log(jumpFloor(2));
-    console.log(jumpFloor(5));
-
-   
-
-    //参考代码
-    function jumpFloor(number)
-{   
-    if(number<4)
-    return number;
-    let a=2,
-        b=3,
-        tem;
-    for(let i=4; i<=number; i++)
-    {tem=a;
-     a=b;
-     b=tem+a;
-    }
-    return b;
-}
+<head>
+    <meta charset="utf-8">
+    <title>剑指offer-8.跳台阶</title>
+    <script>
+        //测试用例
+        console.log(jumpFloor(2));
+        console.log(jumpFloor(5));
 
 
 
+        //参考代码
+        function jumpFloor(n) {
+            if (n < 4) return n;
+            let a = 2,
+                b = 3;
+            for (let i = 4; i <= n; i++) {
+                [a, b] = [b, a + b];
+            }
+            return b;
 
-     </script>
-     </head>
-     
-     <body>
-     <!-- 
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 
      题目描述：
      一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。
      
@@ -46,6 +37,6 @@
      找出规律后，斐波那契数列
 
      -->
-     </body> 
-     
-     </html>
+</body>
+
+</html>
