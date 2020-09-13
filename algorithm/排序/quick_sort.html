@@ -48,7 +48,7 @@
         //参考代码
         function quick(arr, left, right) {
             if (left == right) return;
-            let index = partition(a, left, right);
+            let index = partition(arr, left, right);
             if (left < index)
                 quick(arr, left, index - 1);
             if (index < right)
