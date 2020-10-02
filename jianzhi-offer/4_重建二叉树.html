@@ -1,80 +1,75 @@
-<!-- author:lancer
-     date:2019/12/02 -->
-
 <!DOCTYPE html>
- <html>
- <head>
- <meta charset="utf-8">
- <title>剑指offer-4.重建二叉树</title>
- <script>
+<html>
 
-//树的结构
-/* function TreeNode(x) {
-    this.val = x;
-    this.left = null;
-    this.right = null;
-} */
+<head>
+    <meta charset="utf-8">
+    <title>剑指offer-4.重建二叉树</title>
+    <script>
+        //树的结构
+        /* function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        } */
 
-//测试用例
-let pre = [1,2,4,7,3,5,6,8];
-let vin = [4,7,2,1,5,3,8,6];
-console.log(reConstructBinaryTree1(pre,vin));
+        //测试用例
+        let pre = [1, 2, 4, 7, 3, 5, 6, 8];
+        let vin = [4, 7, 2, 1, 5, 3, 8, 6];
+        console.log(reConstructBinaryTree1(pre, vin));
 
 
-//参考代码（剑指offer上的做法）
-//用递归求解：
-function reConstructBinaryTree1(pre, vin){
-// 判断前序数组和中序数组是否为空
-    if(!pre || pre.length === 0 || !vin || vin.length === 0){   //这里的判断很关键，是不一样的,详见note 4
-        return [];
-    }
-	// 新建二叉树的根节点
-    let treeNode = {
-        val: pre[0]
-    }
-    // 查找中序遍历中的根节点
-    for(let i = 0; i < pre.length; i++) {
-        if (vin[i] === treeNode.val) {
-            // 将左子树的前中序遍历分割开
-            treeNode.left = reConstructBinaryTree1(pre.slice(1, i+1), vin.slice(0, i));
-            // 将右子树的前中序遍历分割开
-            treeNode.right = reConstructBinaryTree1(pre.slice(i+1),vin.slice(i+1));
+        //参考代码（剑指offer上的做法）
+        //用递归求解：
+        function reConstructBinaryTree1(pre, vin) {
+            // 判断前序数组和中序数组是否为空
+            if (!pre || pre.length === 0 || !vin || vin.length === 0) { //这里的判断很关键，是不一样的,详见note 4
+                return [];
+            }
+            // 新建二叉树的根节点
+            let treeNode = {
+                val: pre[0]
+            }
+            // 查找中序遍历中的根节点
+            for (let i = 0; i < pre.length; i++) {
+                if (vin[i] === treeNode.val) {
+                    // 将左子树的前中序遍历分割开
+                    treeNode.left = reConstructBinaryTree1(pre.slice(1, i + 1), vin.slice(0, i));
+                    // 将右子树的前中序遍历分割开
+                    treeNode.right = reConstructBinaryTree1(pre.slice(i + 1), vin.slice(i + 1));
+                }
+            }
+            // 返回该根节点
+            return treeNode;
         }
-    }
-	// 返回该根节点
-    return treeNode;
-}
 
-//补充：已知中序和后序，重建二叉树
-pre=[10,6,4,8,14,12,16];
-vin=[4,6,8,10,12,14,16];
-let post=[4,8,6,12,16,14,10];
-function reConstructBinaryTree2(vin, post){
-if(!vin||!post||vin.length===0||post.length===0){
-return [];
-}
-let root={
-    val:post[post.length-1]},
-    i=0;
-while(root.val!==vin[i]){
-    i++;
-}
-root.left=reConstructBinaryTree2(vin.slice(0,i),post.slice(0,i));
-root.right=reConstructBinaryTree2(vin.slice(i+1),post.slice(i,-1));
-return root;
-}
+        //补充：已知中序和后序，重建二叉树
+        pre = [10, 6, 4, 8, 14, 12, 16];
+        vin = [4, 6, 8, 10, 12, 14, 16];
+        let post = [4, 8, 6, 12, 16, 14, 10];
 
-console.log(reConstructBinaryTree1(pre, vin));
-console.log(reConstructBinaryTree2(vin, post));
+        function reConstructBinaryTree2(vin, post) {
+            if (!vin || !post || vin.length === 0 || post.length === 0) {
+                return [];
+            }
+            let root = {
+                    val: post[post.length - 1]
+                },
+                i = 0;
+            while (root.val !== vin[i]) {
+                i++;
+            }
+            root.left = reConstructBinaryTree2(vin.slice(0, i), post.slice(0, i));
+            root.right = reConstructBinaryTree2(vin.slice(i + 1), post.slice(i, -1));
+            return root;
+        }
 
+        console.log(reConstructBinaryTree1(pre, vin));
+        console.log(reConstructBinaryTree2(vin, post));
+    </script>
+</head>
 
-
-
- </script>
- </head>
-     
- <body>
-     <!-- 
+<body>
+    <!-- 
      题目描述：
      输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
      例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
@@ -86,5 +81,6 @@ console.log(reConstructBinaryTree2(vin, post));
      补充：已知二叉树的前序遍历和中序遍历能重建二叉树，中序遍历和后序遍历也能，只知道前序遍历和后序遍历不能
 
      -->
- </body> 
- </html>
+</body>
+
+</html>

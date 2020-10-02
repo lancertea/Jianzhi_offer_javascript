@@ -1,65 +1,55 @@
-<!-- author:lancer
-     date:2019/12/03 -->
+<!DOCTYPE html>
+<html>
 
-     <!DOCTYPE html>
-     <html>
-     <head>
-     <meta charset="utf-8">
-     <title>剑指offer-5.用两个栈实现队列</title>
-     <script>
+<head>
+    <meta charset="utf-8">
+    <title>剑指offer-5.用两个栈实现队列</title>
+    <script>
+        //测试用例
+        //无
 
+        //参考代码（剑指offer上的做法）
+        let stack1 = [],
+            stack2 = [];
 
-
-//测试用例
-//无
-
-//参考代码（剑指offer上的做法）
-let stack1 =[],
-    stack2 =[];
-function push(node)
-{stack1.push(node);
-}
+        function push(node) {
+            stack1.push(node);
+        }
 
 
-function pop()
-{if(stack2.length===0)
-{while(stack1.length!=0){
-    stack2.push(stack1.pop());
-}
-}
- return stack2.pop();
-}
+        function pop() {
+            if (stack2.length === 0) {
+                while (stack1.length != 0) {
+                    stack2.push(stack1.pop());
+                }
+            }
+            return stack2.pop();
+        }
 
-//补充用两个队列实现栈
-let queue1=[],
-    queue2=[];
+        //补充用两个队列实现栈
+        let queue1 = [],
+            queue2 = [];
 
-function push1(node)
-{
- queue1.push(node);
-}
+        function push1(node) {
+            queue1.push(node);
+        }
 
-function pop1()
-{
-while(queue1.length>1)
-  queue2.push(queue1.shift());
-if(queue1.length===1)
-return queue1.shift();
+        function pop1() {
+            while (queue1.length > 1)
+                queue2.push(queue1.shift());
+            if (queue1.length === 1)
+                return queue1.shift();
 
-while(queue2.length>1)
- queue1.push(queue2.shift());
-if(queue2.length===1)
- return queue2.shift();
-}
+            while (queue2.length > 1)
+                queue1.push(queue2.shift());
+            if (queue2.length === 1)
+                return queue2.shift();
+        }
+    </script>
+</head>
 
-
-    
-
-     </script>
-     </head>
-     
-     <body>
-     <!-- 
+<body>
+    <!-- 
      题目描述：
      用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
      
@@ -68,6 +58,6 @@ if(queue2.length===1)
      经过弹出和压入操作之后就处于stack2的顶端。这样，要求出队列时，若stack2不为空，在stack2中的栈顶元素就是最先进入队列的元素，可直接弹出。
 
      -->
-     </body> 
-     
-     </html>
+</body>
+
+</html>
