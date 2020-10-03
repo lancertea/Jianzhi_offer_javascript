@@ -1,117 +1,97 @@
-<!-- author:lancer
-     date:2019/12/04 -->
-     
-     <!DOCTYPE html>
-     <html>
-     <head>
+ <!DOCTYPE html>
+ <html>
+
+ <head>
      <meta charset="utf-8">
      <title>剑指offer-13.调整数组顺序使奇数位于偶数前面</title>
      <script>
+         //测试用例：
+         let a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+         let b = [1, 2, 1, 4, 2, 3, 6, 4, 3, -1];
+         let c = [3, 2, 1, 6, 1, 3, 4, 3, 5, 6];
+
+         let a1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+         let b1 = [1, 2, 1, 4, 2, 3, 6, 4, 3, -1];
+         let c1 = [3, 2, 1, 6, 1, 3, 4, 3, 5, 6];
+         console.log(reOrderArray(a));
+         console.log(reOrderArray(b));
+         console.log(reOrderArray(c));
+         console.log(reOrderArray1(a));
+         console.log(reOrderArray1(b));
+         console.log(reOrderArray1(c));
+         console.log(reOrderArray2(a1));
+         console.log(reOrderArray2(b1));
+         console.log(reOrderArray2(c1));
+
+         //参考代码
+         //解法1：从头扫描数组，每碰到一个偶数，拿出这个数字，并把位于这个数字后面的所有数字往前挪动一位，将该偶数插入最后空位
+         //时间复杂度 ：O(n*n)  空间复杂度O（1）
 
 
+         //解法2：新建一个相同长度的数组，遍历两遍（一次奇数，一次偶数）
+         //时间复杂度 ：O(n)  空间复杂度O（n）
+         function reOrderArray(array) {
+             if (!array || array.length === 0)
+                 return 0;
+             let result = [];
+             for (let i = 0; i < array.length; i++) {
+                 let a = array[i] > 0 ? array[i] : -array[i] //考虑负数
+                 if (a % 2 === 1)
+                     result.push(array[i]);
+             }
+             for (let i = 0; i < array.length; i++) {
+                 let a = array[i] > 0 ? array[i] : -array[i]
+                 if (a % 2 === 0)
+                     result.push(array[i]);
+             }
+             return result;
+         }
 
-//测试用例：
-let a=[1,2,3,4,5,6,7,8,9,10];
-let b=[1,2,1,4,2,3,6,4,3,-1];
-let c=[3,2,1,6,1,3,4,3,5,6];
+         //解法3：插入排序的思想
+         //要想保证原有次序，则只能顺次移动或相邻交换
+         function reOrderArray1(array) {
+             if (!array || array.length === 0)
+                 return 0;
+             let k = 0; //记录摆好位置的奇数个数
+             for (let i = 0; i < array.length; i++) {
+                 let a = array[i] > 0 ? array[i] : -array[i]
+                 if (a % 2 === 1) {
+                     let j = i; //记录下次奇数出现的位置
+                     while (j > k) {
+                         [array[j], array[j - 1]] = [array[j - 1], array[j]];
+                         j--;
+                     }
+                     k++;
+                 }
+             }
+             return array;
+         }
 
-let a1=[1,2,3,4,5,6,7,8,9,10];
-let b1=[1,2,1,4,2,3,6,4,3,-1];
-let c1=[3,2,1,6,1,3,4,3,5,6];
-console.log(reOrderArray(a));
-console.log(reOrderArray(b));
-console.log(reOrderArray(c));
-console.log(reOrderArray1(a));
-console.log(reOrderArray1(b));
-console.log(reOrderArray1(c));
-console.log(reOrderArray2(a1));
-console.log(reOrderArray2(b1));
-console.log(reOrderArray2(c1));
-
-//参考代码
-//解法1：从头扫描数组，每碰到一个偶数，拿出这个数字，并把位于这个数字后面的所有数字往前挪动一位，将该偶数插入最后空位
-//时间复杂度 ：O(n*n)  空间复杂度O（1）
-
-
-//解法2：新建一个相同长度的数组，遍历两遍（一次奇数，一次偶数）
-//时间复杂度 ：O(n)  空间复杂度O（n）
-function reOrderArray(array)
-{
-if(!array||array.length===0)
-    return 0;
-let result=[];
-for(let i=0;i<array.length;i++)
-{
-let a=array[i]>0?array[i]:-array[i]//考虑负数
-if(a%2===1)
-result.push(array[i]);
-}
-for(let i=0;i<array.length;i++)
-{
-let a=array[i]>0?array[i]:-array[i]
-if(a%2===0)
-result.push(array[i]);
-}
-return result;
-}
-
-//解法3：插入排序的思想
-//要想保证原有次序，则只能顺次移动或相邻交换
-function reOrderArray1(array)
-{
-if(!array||array.length===0)
-return 0;
-let k=0;//记录摆好位置的奇数个数
-for(let i=0;i<array.length;i++)
-{
-let a=array[i]>0?array[i]:-array[i]
-if(a%2===1)
-{
-let j=i;//记录下次奇数出现的位置
-while(j>k)
-{
-let temp=array[j];
-array[j]=array[j-1];
-array[j-1]=temp;
-j--;
-}
-k++;
-}
-}
-return array;
-}
-
-//补充：不用保证相对位置不变（剑指offer上的做法）：
-function reOrderArray2(array)
-{
-if(!array||array.length===0)
-return 0;
-let left=0,
-    right=array.length-1;
-while(left<=right)
-{
-let a=array[left]>0?array[left]:-array[left];
-if(a%2===1)
-left++;
-let b=array[right]>0?array[right]:-array[right];
-if(b%2===0)
-right--;
-if((a%2===0)&&(b%2===1))
-{
-let temp=array[left];
-array[left]=array[right];
-array[right]=temp;
-left++;
-right--;
-}
-}
-return array;
-}
-
+         //补充：不用保证相对位置不变（剑指offer上的做法）：
+         function reOrderArray2(array) {
+             if (!array || array.length === 0)
+                 return 0;
+             let left = 0,
+                 right = array.length - 1;
+             while (left <= right) {
+                 let a = array[left] > 0 ? array[left] : -array[left];
+                 if (a % 2 === 1)
+                     left++;
+                 let b = array[right] > 0 ? array[right] : -array[right];
+                 if (b % 2 === 0)
+                     right--;
+                 if ((a % 2 === 0) && (b % 2 === 1)) {
+                     [array[left], array[right]] = [array[right], array[left]];
+                     left++;
+                     right--;
+                 }
+             }
+             return array;
+         }
      </script>
-     </head>
-     
-     <body>
+ </head>
+
+ <body>
      <!-- 
      题目描述：
      牛客网：输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，
@@ -126,6 +106,6 @@ return array;
     跑到left前面。
 
      -->
-     </body> 
-     
-     </html>
+ </body>
+
+ </html>
