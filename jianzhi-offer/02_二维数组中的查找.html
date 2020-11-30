@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>剑指offer-1.二维数组中的查找</title>
+    <title>剑指offer-02.二维数组中的查找</title>
     <script>
         // row size:array.length
         // column size:array[i].length
@@ -17,23 +17,29 @@
         console.log(a);
         console.log(a.length); //3行
         console.log(a[0].length); //4列
-        console.log(Find(5, a)); //true
-        console.log(Find(9, a)); //false
+        console.log(findNumberIn2DArray(a, 5)); //true
+        console.log(findNumberIn2DArray(a, 9)); //false
 
-        //参考代码（剑指offer上的做法）
-        function Find(target, array) { //初始值为矩阵右上角数字，所以行索引值为0，列索引值为列数-1
+        //参考代码
+        var findNumberIn2DArray = function (matrix, target) {
+            if (matrix == null || target == null || matrix.length === 0) {
+                return false;
+            }
+            let row = matrix.length,
+                column = matrix[0].length;
             let i = 0,
-                j = array[i].length - 1;
-            //求完整度这里最好再加一个判断数组是否为空的条件：a.length>0或者a[0].length>0都可以
-            while ((a.length > 0) && (i < array.length) && (j >= 0)) {
-                if (array[i][j] < target)
+                j = column - 1;
+            while (i < row && j >= 0) {
+                if (matrix[i][j] === target) {
+                    return true;
+                } else if (matrix[i][j] < target) {
                     i++;
-                else if (array[i][j] > target)
+                } else {
                     j--;
-                else return true;
+                }
             }
             return false;
-        }
+        };
     </script>
 </head>
 

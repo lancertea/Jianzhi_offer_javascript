@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>剑指offer-01.数组中重复的数字</title>
+  <script>
+    //测试用例
+    let a = [2, 3, 1, 0, 2, 5, 3];
+    let b = null;
+    let c = [];
+
+    //参考代码：
+    //解法一 直接求解  时间O(n*n)   空间O(1)
+    var duplicate = function (nums) {
+      if (nums == null || nums.length <= 1) {
+        return false;
+      }
+      for (let i = 0; i < nums.length - 1; i++) {
+        for (let j = i + 1; j < nums.length; j++) {
+          if (nums[i] === nums[j]) {
+            return nums[i];
+          }
+        }
+      }
+      return false;
+    }
+
+    //解法二：排序后求解  时间O(n*logn)   空间O(1)
+    var duplicate1 = function (nums) {
+      if (nums == null || nums.length <= 1) {
+        return false;
+      }
+      nums.sort((a, b) => a - b);
+      for (let i = 0; i < nums.length - 1; i++) {
+        if (nums[i] === nums[i + 1]) return nums[i];
+      }
+      return false;
+    }
+
+    //解法三：哈希  时间O(n)   空间O(n)
+    var duplicate2 = function (nums) {
+      if (nums == null || nums.length <= 1) {
+        return false;
+      }
+      let map = {};
+      for (let item of nums) {
+        if (!map[item]) {
+          map[item] = true;
+        } else {
+          return item;
+        }
+      }
+    }
+
+    //解法四：使用set,因为set自动忽略重复元素，遍历数组中元素，若长度未增加，则输出当前元素
+    //时间O(n)   空间O(n)
+    var duplicate3 = function (nums) {
+      if (nums == null || nums.length <= 1) {
+        return false;
+      }
+      let s = new Set();
+      for (let item of nums) {
+        var len = s.size;
+        s.add(item);
+        if (s.size === len) {
+          return item;
+        }
+      }
+    }
+
+    console.log(duplicate(a));
+    console.log(duplicate(b));
+    console.log(duplicate(c));
+
+    console.log(duplicate1(a));
+    console.log(duplicate1(b));
+    console.log(duplicate1(c));
+
+    console.log(duplicate2(a));
+    console.log(duplicate2(b));
+    console.log(duplicate2(c));
+
+    console.log(duplicate3(a));
+    console.log(duplicate3(b));
+    console.log(duplicate3(c));
+  </script>
+</head>
+
+<body>
+  <!-- 
+     题目描述：
+    找出数组中重复的数字。
+    在一个长度为 n 的数组 nums 里的所有数字都在 0～n-1 的范围内。数组中某些数字是重复的，但不知道有几个数字重复了，也不知道每个数字重复了几次。请找出数组中任意一个重复的数字。
+
+    input：[2,3,1,0,2,5,3]
+    output: 2或3
+     
+     -->
+</body>
+
+</html>
