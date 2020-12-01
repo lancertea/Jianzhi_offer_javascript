@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>剑指offer-13.机器人的运动范围</title>
+
+</head>
+
+<body>
+
+    <script>
+        let m = 2,
+            n = 3,
+            k = 1;
+        let m1 = 3,
+            n1 = 1,
+            k1 = 0;
+
+        var movingCount = function (m, n, k) {
+            if (!m || !n) return 0;
+            if (k === 0) return 1;
+            const directArr = [
+                [-1, 0], //上
+                [0, 1], //右
+                [1, 0], //下
+                [0, -1] //左
+            ];
+            let getSum = function (num) {
+                let arr = num.toString().split("");
+                return arr.reduce((a, b) => Number(a) + Number(b), 0);
+            };
+            let s = new Set(['0,0']),
+                queue = [
+                    [0, 0]
+                ];
+            while (queue.length) {
+                let [x, y] = queue.shift();
+
+                for (let i = 0; i < 4; i++) {
+                    let offsetX = x + directArr[i][0],
+                        offsetY = y + directArr[i][1];
+
+                    if (offsetX < 0 || offsetX >= m || offsetY < 0 || offsetY >= n ||
+                        getSum(offsetX) + getSum(offsetY) > k || s.has(`${offsetX},${offsetY}`)) {
+                        continue;
+                    }
+                    s.add(`${offsetX},${offsetY}`);
+                    queue.push([offsetX, offsetY]);
+                }
+            }
+            return s.size;
+        }
+
+        console.log(movingCount(m, n, k));
+        console.log(movingCount(m1, n1, k1));
+    </script>
+
+</body>
+<!-- 
+题目描述：
+地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外），也不能进入行坐标和列坐标的数位之和大于k的格子。例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？
+
+示例 1：
+输入：m = 2, n = 3, k = 1
+输出：3
+
+示例 2：
+输入：m = 3, n = 1, k = 0
+输出：1
+-->
+
+</html>

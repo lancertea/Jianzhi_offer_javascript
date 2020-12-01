@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>剑指offer-7.斐波那契数列</title>
+    <title>剑指offer-07.斐波那契数列</title>
     <script>
         //测试用例
         console.log(Fibonacci1(5));
@@ -52,6 +52,7 @@
                 b = 1;
             for (let i = 2; i <= n; i++) {
                 [a, b] = [b, a + b]
+                console.log(a,b);
             }
             return b;
         }
