@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>剑指offer-19.删除链表的节点</title>
+    <script>
+        function ListNode(val) {
+            this.val = val;
+            this.next = null;
+        }
+
+        //测试用例
+        let list = new ListNode(4);
+        let a = new ListNode(1);
+        list.next = a;
+        let b = new ListNode(7);
+        a.next = b;
+        let c = new ListNode(3);
+        b.next = c;
+        let d = new ListNode(5);
+        c.next = d;
+        let e = new ListNode(6);
+        d.next = e; //list=[4,1,7,3,5,6]
+
+        var deleteNode = function (head, val) {
+            let pre = null,
+                pnode = head;
+            while (pnode) {
+                if (pnode.val !== val) {
+                    pre = pnode;
+                    pnode = pnode.next;
+                } else {
+                    if (pnode === head) return head.next;
+                    pre.next = pnode.next;
+                    return head;
+                }
+            }
+        };
+
+        function traverse(head) {
+            let arr = [];
+            while (head) {
+                arr.push(head.val);
+                head = head.next;
+            }
+            return arr;
+        }
+
+        let res = deleteNode(list, 5)
+        console.log(traverse(res));
+
+        var deleteNode1 = function (head, val) {
+            let pre = new ListNode(-1); //哨兵节点
+            pre.next = head;
+            let node = pre;
+            while (node.next) {
+                if (node.next.val === val) {
+                    node.next = node.next.next;
+                    break;
+                }
+                node = node.next;
+            }
+            return pre.next;
+        };
+    </script>
+</head>
+
+<body>
+    <!-- 
+     题目描述：
+     给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。返回删除后的链表的头节点。
+     
+     示例 1:
+     输入:head = [4,1,7,3,5,6], val = 5
+     输出: [4,1,7,3,6]
+ 
+     -->
+</body>
+
+</html>
