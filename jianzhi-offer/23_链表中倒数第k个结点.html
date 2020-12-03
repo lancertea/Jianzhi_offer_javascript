@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>剑指offer-14.链表中倒数第k个结点</title>
+    <title>剑指offer-23.链表中倒数第k个结点</title>
     <script>
         //链表的设计：
         //设计链表包含两个类，一个是Node类用来表示节点，另一个是LinkedList类提供插入节点、删除节点等一些操作
@@ -45,12 +45,12 @@
             let p1 = head,
                 p2 = head;
             while (k > 1) {
-                if (p2.next != null) {
+                if (p2.next !== null) {
                     p2 = p2.next;
                     k--;
                 } else return 0; //k超过了链表的长度
             }
-            while (p2.next != null) {
+            while (p2.next !== null) {
                 p1 = p1.next;
                 p2 = p2.next;
             }
