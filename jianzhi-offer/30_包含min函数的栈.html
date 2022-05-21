@@ -15,7 +15,7 @@ let math_stack=[],
 function push(node)
 {
 math_stack.push(node);
-if((min_stack.length===0)||(node<min_stack[min_stack.length-1]))
+if((min_stack.length===0)||(node<=min_stack[min_stack.length-1]))
 min_stack.push(node);
 }
 
