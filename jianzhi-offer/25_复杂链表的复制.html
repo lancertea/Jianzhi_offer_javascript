@@ -10,7 +10,7 @@
 
 
 function RandomListNode(x){
-    this.label = x;
+    this.val = x;
     this.next = null;
     this.random = null;
 }
@@ -32,51 +32,60 @@ console.log(Clone(List1));
 console.log(Clone1(List1));
 
 //参考代码
-//解法一（剑指offer上的做法）
-function Clone(pHead)
+//解法一
+//时间复杂度：O(n)
+//空间复杂度：O(1)
+function Clone(head)
 {
-if(pHead==null) return null;
-let currNode=pHead;
-let node=0;
-while(currNode)
-{
-  node =new RandomListNode(currNode.label);
-  node.next=currNode.next;
-  currNode.next=node;
-  currNode=node.next;
+if(!head){
+  return head;
 }
-
-currNode=pHead;
-while(currNode)
-{
-  node=currNode.next;
-  if(currNode.random)
-  node.random=currNode.random.next;
-  currNode=node.next;
+let cur = head;
+while(cur){
+  cur.next = new RandomListNode(cur.val,cur.next);
+  cur = cur.next.next;
 }
-
-currNode=pHead;
-let pCloneHead=currNode.next;
-let tmp=0;
-while(currNode.next)
-{
-  tmp=currNode.next;
-  currNode.next=tmp.next;
-  currNode=tmp;
+cur = head;
+while(cur){
+  if(cur.random){
+    cur.next.random = cur.random.next;
+  }
+  cur = cur.next.next;
 }
-
-return pCloneHead;
+cur = head;
+let res = cur.next, node = res;
+while(cur.next && node.next){
+  cur.next = cur.next.next;
+  node.next = node.next.next;
+  cur = cur.next;
+  node = node.next;
+}
+cur.next = null;
+return res;
 }
 
 //解法二
-function Clone1(pHead)
+// 使用map记录新节点
+//时间复杂度：O(n)
+//空间复杂度：O(n)
+function Clone1(head)
 {
-if(pHead==null) return null;
-let pcHead=new RandomListNode(pHead.label);
-pcHead.random=pHead.random;
-pcHead.next=Clone1(pHead.next);
-
-return pcHead;
+ if(!head){
+   return head;
+ }
+ let cur = head, 
+     m = new Map();
+  while(cur){
+    m.set(cur,new RandomListNode(cur.val));
+    cur = cur.next;
+  }
+  cur = head;
+  while(cur){
+    m.get(cur).next = m.get(cur.next) === undefined ? null : m.get(cur.next);
+    m.get(cur).random = m.get(cur.random);
+    cur = cur.next;
+  }
+  return m.get(head);
 }
 
 
