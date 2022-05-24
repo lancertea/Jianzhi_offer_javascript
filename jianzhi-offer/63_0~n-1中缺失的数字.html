@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>剑指offer-63.0~n-1中缺失的数字</title>
+    <script>
+        let d1 = [0, 1, 3];
+        let d2 = [0, 1];
+        let d3 = [0, 1, 2, 3, 4, 5, 6, 7, 9];
+        console.log(missingNumber(d1));
+        console.log(missingNumber(d2));
+        console.log(missingNumber(d3));
+
+        //解法1: 等差数列
+        //时间复杂度为O(n)
+        function missingNumber(arr) {
+            const n = arr.length;
+            const total = (0 + n) * (n + 1)/ 2;
+            const cur = arr.reduce((res, next) => res + next);
+            return total - cur;
+
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 
+     题目描述：
+     一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。
+     
+     解题思路：
+     
+     
+     -->
+</body>
+
+</html>
